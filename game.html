@@ -11,6 +11,7 @@
   --bg:#0a0e17;--surface:#111827;--surface2:#1a2236;--border:#1e293b;
   --text:#e2e8f0;--text-dim:#64748b;--cyan:#06d6a0;--purple:#a855f7;
   --pink:#ec4899;--amber:#f59e0b;--red:#ef4444;--blue:#3b82f6;
+  --gold:#fbbf24;--green:#22c55e;
 }
 html{font-size:15px}
 body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
@@ -31,10 +32,11 @@ header h1{font-size:1.6rem;font-weight:900;letter-spacing:-1px;background:linear
 .stat-value.cores{color:var(--pink)}
 
 .tabs{display:flex;justify-content:center;gap:6px;padding:10px 16px;background:var(--surface);border-bottom:1px solid var(--border)}
-.tab-btn{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:7px 18px;font-size:.78rem;font-weight:600;color:var(--text-dim);cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s}
+.tab-btn{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:7px 14px;font-size:.72rem;font-weight:600;color:var(--text-dim);cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s}
 .tab-btn:hover{border-color:var(--cyan);color:var(--text)}
 .tab-btn.active{background:rgba(6,214,160,.12);border-color:var(--cyan);color:var(--cyan)}
-.tab-btn .badge{font-family:'JetBrains Mono',monospace;background:var(--purple);color:#fff;font-size:.65rem;padding:1px 6px;border-radius:6px;margin-left:6px}
+.tab-btn .badge{font-family:'JetBrains Mono',monospace;background:var(--purple);color:#fff;font-size:.6rem;padding:1px 5px;border-radius:6px;margin-left:4px}
+.tab-btn .badge.ach-badge{background:var(--gold);color:#000}
 
 .panel{display:none;max-width:760px;margin:0 auto;padding:16px}
 .panel.active{display:block}
@@ -50,6 +52,7 @@ header h1{font-size:1.6rem;font-weight:900;letter-spacing:-1px;background:linear
 .biz-info{flex:1;min-width:0}
 .biz-name{font-weight:700;font-size:.95rem;margin-bottom:1px}
 .biz-detail{font-size:.72rem;color:var(--text-dim);font-family:'JetBrains Mono',monospace}
+.biz-persec{font-size:.65rem;color:var(--purple);font-family:'JetBrains Mono',monospace;margin-top:1px}
 .biz-level{font-size:.68rem;background:var(--surface2);color:var(--cyan);padding:2px 8px;border-radius:6px;font-weight:600;white-space:nowrap}
 .milestone-next{font-size:.6rem;color:var(--amber);margin-top:2px;font-family:'JetBrains Mono',monospace}
 
@@ -60,8 +63,8 @@ header h1{font-size:1.6rem;font-weight:900;letter-spacing:-1px;background:linear
 
 .biz-actions{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
 .buy-qty{display:flex;gap:3px;margin-left:auto}
-.buy-qty button{background:var(--surface2);border:1px solid var(--border);color:var(--text-dim);font-size:.65rem;padding:3px 8px;border-radius:6px;cursor:pointer;font-family:'Inter',sans-serif;font-weight:600;transition:all .15s}
-.buy-qty button:hover,.buy-qty button.active{border-color:var(--cyan);color:var(--cyan);background:rgba(6,214,160,.1)}
+.qty-btn{background:var(--surface2);border:1px solid var(--border);color:var(--text-dim);font-size:.65rem;padding:3px 8px;border-radius:6px;cursor:pointer;font-family:'Inter',sans-serif;font-weight:600;transition:all .15s}
+.qty-btn:hover,.qty-btn.active{border-color:var(--cyan);color:var(--cyan);background:rgba(6,214,160,.1)}
 
 .btn{border:none;border-radius:10px;padding:8px 14px;font-size:.75rem;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:transform .1s,box-shadow .15s,opacity .15s;display:inline-flex;align-items:center;gap:5px}
 .btn:active{transform:scale(.96)}
@@ -79,11 +82,12 @@ header h1{font-size:1.6rem;font-weight:900;letter-spacing:-1px;background:linear
 
 .upgrade-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:10px;display:flex;align-items:center;gap:14px;transition:border-color .2s}
 .upgrade-card:hover{border-color:rgba(168,85,247,.3)}
-.upgrade-card.purchased{opacity:.4;pointer-events:none}
+.upgrade-card.purchased{opacity:.35;pointer-events:none}
 .upgrade-info{flex:1}
-.upgrade-name{font-weight:700;font-size:.88rem;margin-bottom:2px}
-.upgrade-desc{font-size:.72rem;color:var(--text-dim)}
+.upgrade-name{font-weight:700;font-size:.85rem;margin-bottom:2px}
+.upgrade-desc{font-size:.7rem;color:var(--text-dim)}
 .upgrade-cost{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--amber);font-weight:700;white-space:nowrap}
+.section-head{font-size:.85rem;font-weight:700;color:var(--text-dim);margin:20px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:1px}
 
 .prestige-panel{text-align:center;padding:40px 20px}
 .prestige-panel h2{font-size:1.6rem;font-weight:900;color:var(--pink);margin-bottom:8px}
@@ -95,9 +99,19 @@ header h1{font-size:1.6rem;font-weight:900;letter-spacing:-1px;background:linear
 .core-upgrades{max-width:500px;margin:24px auto 0;text-align:left}
 .core-upgrades h3{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:12px}
 
+.ach-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.ach-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:10px;transition:all .2s}
+.ach-card.unlocked{border-color:rgba(251,191,36,.3);background:rgba(251,191,36,.04)}
+.ach-card.locked{opacity:.4;filter:grayscale(.6)}
+.ach-icon{font-size:1.6rem;flex-shrink:0}
+.ach-info{flex:1;min-width:0}
+.ach-name{font-weight:700;font-size:.8rem}
+.ach-desc{font-size:.65rem;color:var(--text-dim)}
+
 .float-text{position:fixed;pointer-events:none;font-weight:700;font-size:1rem;font-family:'JetBrains Mono',monospace;color:var(--cyan);z-index:999;animation:floatUp .9s ease-out forwards}
+.float-text.lucky{color:var(--gold);font-size:1.3rem;text-shadow:0 0 12px rgba(251,191,36,.5)}
 @keyframes floatUp{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-60px) scale(.7)}}
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--surface2);border:1px solid var(--purple);border-radius:10px;padding:10px 20px;font-size:.8rem;color:var(--purple);font-weight:600;z-index:1000;animation:toastIn .3s ease-out;pointer-events:none}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--surface2);border:1px solid var(--purple);border-radius:10px;padding:10px 20px;font-size:.8rem;color:var(--purple);font-weight:600;z-index:1000;animation:toastIn .3s ease-out;pointer-events:none;max-width:90vw;text-align:center}
 @keyframes toastIn{0%{opacity:0;transform:translateX(-50%) translateY(20px)}100%{opacity:1;transform:translateX(-50%) translateY(0)}}
 
 footer{text-align:center;padding:20px;font-size:.7rem;color:var(--text-dim)}
@@ -110,6 +124,7 @@ footer{text-align:center;padding:20px;font-size:.7rem;color:var(--text-dim)}
   .btn{width:100%;justify-content:center}
   .buy-qty{margin-left:0;justify-content:center}
   .tabs{overflow-x:auto;justify-content:flex-start;gap:4px;padding:8px 12px}
+  .ach-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -130,11 +145,13 @@ footer{text-align:center;padding:20px;font-size:.7rem;color:var(--text-dim)}
 <div class="tabs">
   <button class="tab-btn active" data-tab="businesses">&#x1F3E2; Businesses</button>
   <button class="tab-btn" data-tab="upgrades">&#x2B06; Upgrades <span class="badge" id="upgBadge">0</span></button>
+  <button class="tab-btn" data-tab="achievements">&#x1F3C6; Trophies <span class="badge ach-badge" id="achBadge">0</span></button>
   <button class="tab-btn" data-tab="prestige">&#x1F9E0; Neural Cores</button>
 </div>
 
 <div id="panelBusinesses" class="panel active"></div>
 <div id="panelUpgrades" class="panel"></div>
+<div id="panelAchievements" class="panel"></div>
 <div id="panelPrestige" class="panel"></div>
 
 <footer>AI Startup Tycoon &mdash; an idle clicker game built with AI</footer>
@@ -143,78 +160,157 @@ footer{text-align:center;padding:20px;font-size:.7rem;color:var(--text-dim)}
 (function(){
 "use strict";
 
-var BIZ = [
-  {id:"codebot",  name:"Code Bot",          emoji:"\u{1F916}", baseCost:4,        baseIncome:1,          baseTime:1000,  managerCost:50},
-  {id:"scraper",  name:"Data Scraper",       emoji:"\u{1F577}\uFE0F", baseCost:60,       baseIncome:45,         baseTime:3000,  managerCost:1200},
-  {id:"chatbot",  name:"Chat Assistant",     emoji:"\u{1F4AC}", baseCost:720,      baseIncome:720,        baseTime:4000,  managerCost:18000},
-  {id:"imagegen", name:"Image Generator",    emoji:"\u{1F3A8}", baseCost:8640,     baseIncome:12960,      baseTime:5000,  managerCost:260000},
-  {id:"voiceai",  name:"Voice AI",           emoji:"\u{1F399}\uFE0F", baseCost:103680,   baseIncome:233280,     baseTime:6000,  managerCost:4000000},
-  {id:"agent",    name:"AI Agent",           emoji:"\u{1F9E0}", baseCost:1244160,  baseIncome:4199040,    baseTime:8000,  managerCost:75000000},
-  {id:"infra",    name:"GPU Cloud",          emoji:"\u{2601}\uFE0F",  baseCost:14929920, baseIncome:89579520,   baseTime:10000, managerCost:1500000000},
-  {id:"agi",      name:"AGI Research Lab",   emoji:"\u{1F52C}", baseCost:179159040,baseIncome:2508826560, baseTime:14000, managerCost:40000000000}
+/* ============ DATA ============ */
+
+var BIZ=[
+  {id:"codebot", name:"Code Bot",        emoji:"\u{1F916}", baseCost:4,         baseIncome:1,         baseTime:600,  managerCost:50},
+  {id:"scraper", name:"Data Scraper",     emoji:"\u{1F577}\uFE0F", baseCost:60,        baseIncome:12,        baseTime:1500, managerCost:1000},
+  {id:"chatbot", name:"Chat Assistant",   emoji:"\u{1F4AC}", baseCost:720,       baseIncome:180,       baseTime:2000, managerCost:15000},
+  {id:"imagegen",name:"Image Generator",  emoji:"\u{1F3A8}", baseCost:8640,      baseIncome:2880,      baseTime:2500, managerCost:250000},
+  {id:"voiceai", name:"Voice AI",         emoji:"\u{1F399}\uFE0F", baseCost:103680,    baseIncome:41472,     baseTime:3000, managerCost:5e6},
+  {id:"agent",   name:"AI Agent",         emoji:"\u{1F9E0}", baseCost:1244160,   baseIncome:622080,    baseTime:4000, managerCost:100e6},
+  {id:"infra",   name:"GPU Cloud",        emoji:"\u{2601}\uFE0F",  baseCost:14929920,  baseIncome:8957952,   baseTime:5000, managerCost:2.5e9},
+  {id:"agi",     name:"AGI Research Lab", emoji:"\u{1F52C}", baseCost:179159040, baseIncome:119439360, baseTime:6000, managerCost:75e9}
 ];
 var COST_MULT=1.07;
 var MILESTONES=[25,50,100,200,300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2500,3000,4000,5000];
-var MILESTONE_MULT=2;
+var MILESTONE_MULT=3;
 
 var UPGRADES=[
-  {id:"u1",cost:500,target:"codebot",mult:3,desc:"Overclock the Code Bot"},
-  {id:"u2",cost:2500,target:"scraper",mult:3,desc:"Parallel scraping threads"},
-  {id:"u3",cost:25e3,target:"chatbot",mult:3,desc:"Fine-tuned language model"},
-  {id:"u4",cost:250e3,target:"imagegen",mult:3,desc:"Diffusion model v2"},
-  {id:"u5",cost:2.5e6,target:"voiceai",mult:3,desc:"Real-time voice cloning"},
-  {id:"u6",cost:25e6,target:"agent",mult:3,desc:"Multi-agent orchestration"},
-  {id:"u7",cost:250e6,target:"infra",mult:3,desc:"Distributed GPU mesh"},
-  {id:"u8",cost:2.5e9,target:"agi",mult:3,desc:"Recursive self-improvement"},
-  {id:"u9",cost:5000,target:"all",mult:2,desc:"All businesses x2 profit"},
-  {id:"u10",cost:500e3,target:"all",mult:2,desc:"Enterprise licensing deals"},
-  {id:"u11",cost:50e6,target:"all",mult:2,desc:"Government AI contracts"},
-  {id:"u12",cost:5e9,target:"all",mult:2,desc:"Global AI dominance"},
-  {id:"u13",cost:100,target:"codebot",type:"speed",mult:.5,desc:"Speed: Code Bot 2x faster"},
-  {id:"u14",cost:10000,target:"scraper",type:"speed",mult:.5,desc:"Speed: Data Scraper 2x faster"},
-  {id:"u15",cost:1e6,target:"chatbot",type:"speed",mult:.5,desc:"Speed: Chat Assistant 2x faster"},
-  {id:"u16",cost:1e8,target:"all",type:"speed",mult:.5,desc:"Speed: All businesses 2x faster"}
+  {id:"u1", cost:100,     target:"codebot", mult:3,   desc:"Overclock Code Bot"},
+  {id:"u2", cost:250,     target:"codebot", type:"speed",mult:.5,desc:"Code Bot 2x faster"},
+  {id:"u3", cost:800,     target:"scraper", mult:3,   desc:"Parallel scraping threads"},
+  {id:"u4", cost:2e3,     target:"scraper", type:"speed",mult:.5,desc:"Data Scraper 2x faster"},
+  {id:"u5", cost:4e3,     target:"all",     mult:2,   desc:"AI Optimization Suite"},
+  {id:"u6", cost:8e3,     target:"chatbot", mult:3,   desc:"Fine-tuned language model"},
+  {id:"u7", cost:15e3,    target:"chatbot", type:"speed",mult:.5,desc:"Chat Assistant 2x faster"},
+  {id:"u8", cost:25e3,    target:"codebot", mult:3,   desc:"Neural code compiler"},
+  {id:"u9", cost:40e3,    target:"all",     mult:2,   desc:"Enterprise licensing deals"},
+  {id:"u10",cost:70e3,    target:"imagegen",mult:3,   desc:"Diffusion model v2"},
+  {id:"u11",cost:150e3,   target:"imagegen",type:"speed",mult:.5,desc:"Image Gen 2x faster"},
+  {id:"u12",cost:300e3,   target:"scraper", mult:3,   desc:"Web-scale data pipeline"},
+  {id:"u13",cost:500e3,   target:"voiceai", mult:3,   desc:"Real-time voice cloning"},
+  {id:"u14",cost:800e3,   target:"all",     mult:2,   desc:"Venture capital Series A"},
+  {id:"u15",cost:1.5e6,   target:"voiceai", type:"speed",mult:.5,desc:"Voice AI 2x faster"},
+  {id:"u16",cost:3e6,     target:"chatbot", mult:3,   desc:"GPT-X integration"},
+  {id:"u17",cost:5e6,     target:"agent",   mult:3,   desc:"Multi-agent orchestration"},
+  {id:"u18",cost:8e6,     target:"all",     mult:2,   desc:"Government AI contracts"},
+  {id:"u19",cost:15e6,    target:"agent",   type:"speed",mult:.5,desc:"AI Agent 2x faster"},
+  {id:"u20",cost:30e6,    target:"imagegen",mult:3,   desc:"Neural rendering engine"},
+  {id:"u21",cost:60e6,    target:"infra",   mult:3,   desc:"Distributed GPU mesh"},
+  {id:"u22",cost:100e6,   target:"all",     mult:2,   desc:"IPO \u2014 public offering"},
+  {id:"u23",cost:200e6,   target:"infra",   type:"speed",mult:.5,desc:"GPU Cloud 2x faster"},
+  {id:"u24",cost:400e6,   target:"scraper", mult:3,   desc:"Quantum data mining"},
+  {id:"u25",cost:700e6,   target:"voiceai", mult:3,   desc:"Telepathic voice interface"},
+  {id:"u26",cost:1.5e9,   target:"agi",     mult:3,   desc:"Recursive self-improvement"},
+  {id:"u27",cost:3e9,     target:"all",     mult:2,   desc:"Global AI monopoly"},
+  {id:"u28",cost:5e9,     target:"agi",     type:"speed",mult:.5,desc:"AGI Lab 2x faster"},
+  {id:"u29",cost:10e9,    target:"chatbot", mult:3,   desc:"Omniscient chat oracle"},
+  {id:"u30",cost:20e9,    target:"all",     mult:3,   desc:"AI consciousness breakthrough"},
+  {id:"u31",cost:40e9,    target:"codebot", mult:5,   desc:"Code Bot singularity"},
+  {id:"u32",cost:80e9,    target:"agent",   mult:3,   desc:"Autonomous agent swarm"},
+  {id:"u33",cost:150e9,   target:"infra",   mult:3,   desc:"Dyson sphere computing"},
+  {id:"u34",cost:300e9,   target:"all",     mult:2,   desc:"Timeline manipulation"},
+  {id:"u35",cost:600e9,   target:"imagegen",mult:5,   desc:"Reality rendering engine"},
+  {id:"u36",cost:1e12,    target:"voiceai", mult:5,   desc:"Voice AI telepathy"},
+  {id:"u37",cost:2e12,    target:"all",     type:"speed",mult:.5,desc:"All businesses 2x faster"},
+  {id:"u38",cost:5e12,    target:"all",     mult:3,   desc:"Galactic AI network"},
+  {id:"u39",cost:10e12,   target:"agent",   mult:5,   desc:"Agent hive mind"},
+  {id:"u40",cost:25e12,   target:"agi",     mult:3,   desc:"Multiverse computation"},
+  {id:"u41",cost:50e12,   target:"infra",   mult:5,   desc:"Quantum foam processors"},
+  {id:"u42",cost:100e12,  target:"all",     mult:5,   desc:"Universal consciousness"},
+  {id:"u43",cost:250e12,  target:"scraper", mult:5,   desc:"Omniscient data oracle"},
+  {id:"u44",cost:500e12,  target:"codebot", mult:10,  desc:"Code Bot transcendence"},
+  {id:"u45",cost:1e15,    target:"all",     mult:5,   desc:"Cosmic profit engine"},
+  {id:"u46",cost:5e15,    target:"chatbot", mult:10,  desc:"Chat oracle ascension"},
+  {id:"u47",cost:10e15,   target:"all",     type:"speed",mult:.25,desc:"All businesses 4x faster"},
+  {id:"u48",cost:50e15,   target:"all",     mult:7,   desc:"Big Bang simulator"},
+  {id:"u49",cost:100e15,  target:"agi",     mult:10,  desc:"AGI god-mode"},
+  {id:"u50",cost:1e18,    target:"all",     mult:10,  desc:"Multiverse domination"}
 ];
 
 var CORE_UPGRADES=[
-  {id:"cu1",cost:5,mult:2,desc:"All profits x2 (permanent)"},
-  {id:"cu2",cost:25,mult:3,desc:"All profits x3 (permanent)"},
-  {id:"cu3",cost:100,coreBoost:.01,desc:"Neural Core effectiveness +1%"},
-  {id:"cu4",cost:500,mult:5,desc:"All profits x5 (permanent)"},
-  {id:"cu5",cost:2000,coreBoost:.02,desc:"Neural Core effectiveness +2%"},
-  {id:"cu6",cost:10000,mult:10,desc:"All profits x10 (permanent)"}
+  {id:"cu1", cost:5,    mult:2,            desc:"All profits x2 (permanent)"},
+  {id:"cu2", cost:10,   coreBoost:.01,     desc:"Core effectiveness +1%"},
+  {id:"cu3", cost:25,   mult:2,            desc:"All profits x2 (permanent)"},
+  {id:"cu4", cost:50,   coreBoost:.01,     desc:"Core effectiveness +1%"},
+  {id:"cu5", cost:100,  mult:3,            desc:"All profits x3 (permanent)"},
+  {id:"cu6", cost:200,  coreBoost:.02,     desc:"Core effectiveness +2%"},
+  {id:"cu7", cost:500,  mult:3,            desc:"All profits x3 (permanent)"},
+  {id:"cu8", cost:1000, coreBoost:.03,     desc:"Core effectiveness +3%"},
+  {id:"cu9", cost:2500, mult:5,            desc:"All profits x5 (permanent)"},
+  {id:"cu10",cost:5000, coreBoost:.05,     desc:"Core effectiveness +5%"},
+  {id:"cu11",cost:10000,mult:5,            desc:"All profits x5 (permanent)"},
+  {id:"cu12",cost:25000,mult:10,           desc:"All profits x10 (permanent)"}
 ];
+
+var ACHIEVEMENTS=[
+  {id:"a1", name:"Hello World",     icon:"\u{1F44B}",desc:"Buy your first Code Bot"},
+  {id:"a2", name:"Seed Round",      icon:"\u{1F331}",desc:"Earn $1,000 total"},
+  {id:"a3", name:"Series A",        icon:"\u{1F680}",desc:"Earn $1 Million total"},
+  {id:"a4", name:"Unicorn",         icon:"\u{1F984}",desc:"Earn $1 Billion total"},
+  {id:"a5", name:"Mega Corp",       icon:"\u{1F3E2}",desc:"Earn $1 Trillion total"},
+  {id:"a6", name:"World Power",     icon:"\u{1F30D}",desc:"Earn $1 Quadrillion total"},
+  {id:"a7", name:"Cosmic Scale",    icon:"\u2728",   desc:"Earn $1 Quintillion total"},
+  {id:"a8", name:"Diversified",     icon:"\u{1F4CA}",desc:"Own 3 different businesses"},
+  {id:"a9", name:"Full Stack",      icon:"\u{1F3AF}",desc:"Own all 8 businesses"},
+  {id:"a10",name:"Delegator",       icon:"\u{1F454}",desc:"Hire your first manager"},
+  {id:"a11",name:"Fully Automated", icon:"\u{1F916}",desc:"Hire all 8 managers"},
+  {id:"a12",name:"Neural Pioneer",  icon:"\u{1F9E0}",desc:"Prestige for the first time"},
+  {id:"a13",name:"Core Hoarder",    icon:"\u{1F48E}",desc:"Earn 100 Neural Cores total"},
+  {id:"a14",name:"Centurion",       icon:"\u{1F4AF}",desc:"Any business to level 100"},
+  {id:"a15",name:"Speed Demon",     icon:"\u26A1",   desc:"Buy a speed upgrade"},
+  {id:"a16",name:"Upgrade Junkie",  icon:"\u2B06\uFE0F",desc:"Buy 10 upgrades"},
+  {id:"a17",name:"Upgrade Master",  icon:"\u{1F3C5}",desc:"Buy 25 upgrades"},
+  {id:"a18",name:"Lucky Star",      icon:"\u{1F340}",desc:"Get a lucky 7x bonus"},
+  {id:"a19",name:"Milestone",       icon:"\u{1F396}\uFE0F",desc:"Reach level 25 on any business"},
+  {id:"a20",name:"Cash King",       icon:"\u{1F451}",desc:"Hold $1 Billion at once"}
+];
+
+/* ============ STATE ============ */
 
 var st;
 function defaults(){
-  return{money:0,lifetime:0,totalLifetime:0,cores:0,coresSacrificed:0,coreBonus:.02,
+  return{money:0,lifetime:0,totalLifetime:0,cores:0,totalCoresEarned:0,coreBonus:.02,
     coreMult:1,buyQty:1,purchasedUpgrades:[],purchasedCoreUpgrades:[],
+    unlockedAchievements:[],luckyCount:0,
     biz:BIZ.map(function(b){return{id:b.id,level:b.id==="codebot"?1:0,hasManager:false,progress:0,running:false,speedMult:1,profitMult:1}}),
     lastTick:Date.now()};
 }
 function bs(id){return st.biz.find(function(b){return b.id===id})}
 function bd(id){return BIZ.find(function(b){return b.id===id})}
 
+/* ============ MATH ============ */
+
 function bulkCost(def,curLv,qty){
   var total=0;
   for(var i=0;i<qty;i++) total+=Math.floor(def.baseCost*Math.pow(COST_MULT,curLv+i));
   return total;
 }
+function maxAfford(def,curLv){
+  var base=def.baseCost*Math.pow(COST_MULT,curLv);
+  if(st.money<Math.floor(base))return 0;
+  var n=Math.floor(Math.log(st.money*(COST_MULT-1)/base+1)/Math.log(COST_MULT));
+  while(n>1&&bulkCost(def,curLv,n)>st.money) n--;
+  return Math.max(n,1);
+}
 function income(def,b){
   var base=def.baseIncome*b.level;
   var msMult=1;
   for(var i=0;i<MILESTONES.length;i++){if(b.level>=MILESTONES[i])msMult*=MILESTONE_MULT;else break;}
-  return base*b.profitMult*msMult*st.coreMult*(1+st.cores*st.coreBonus);
+  return base*b.profitMult*msMult*st.coreMult*(1+st.cores*st.coreBonus)*achMult();
 }
 function cycleTime(def,b){return Math.max(def.baseTime*b.speedMult,100)}
-
 function perSec(){
   var t=0;
   for(var i=0;i<BIZ.length;i++){var b=bs(BIZ[i].id);if(b.level>0&&b.hasManager)t+=income(BIZ[i],b)/(cycleTime(BIZ[i],b)/1000);}
   return t;
 }
-function pendingCores(){return Math.max(0,Math.floor(Math.pow(st.totalLifetime/1e10,.5))-st.coresSacrificed)}
+function pendingCores(){return Math.max(0,Math.floor(Math.pow(st.totalLifetime/1e7,.5))-st.totalCoresEarned)}
 function nextMilestone(lv){for(var i=0;i<MILESTONES.length;i++){if(lv<MILESTONES[i])return MILESTONES[i];}return null;}
+function achMult(){return Math.pow(1.05,st.unlockedAchievements.length)}
+
+/* ============ FORMATTING ============ */
 
 var SF=["","K","M","B","T","Qa","Qi","Sx","Sp","Oc","No","Dc","UDc","DDc","TDc","QaDc","QiDc","SxDc","SpDc","OcDc","NoDc","Vg"];
 function fmt(n){
@@ -231,18 +327,26 @@ function fmtN(n){
   return(s<10?s.toFixed(2):s<100?s.toFixed(1):s.toFixed(0))+SF[t];
 }
 
-function save(){try{localStorage.setItem("aiTycoon2",JSON.stringify(st))}catch(e){}}
+/* ============ SAVE/LOAD ============ */
+
+function save(){try{localStorage.setItem("aiTycoon3",JSON.stringify(st))}catch(e){}}
 function load(){
-  try{var r=localStorage.getItem("aiTycoon2");if(!r)return false;var s=JSON.parse(r);
-    for(var k in defaults()){if(!(k in s))s[k]=defaults()[k];}
+  try{var r=localStorage.getItem("aiTycoon3");if(!r)return false;var s=JSON.parse(r);
+    var d=defaults();
+    for(var k in d){if(!(k in s))s[k]=d[k];}
     st=s;
     for(var i=0;i<st.biz.length;i++){
       if(!("speedMult" in st.biz[i]))st.biz[i].speedMult=1;
       if(!("profitMult" in st.biz[i]))st.biz[i].profitMult=1;
     }
+    if(!("totalCoresEarned" in st))st.totalCoresEarned=st.cores+(st.coresSacrificed||0);
+    if(!("unlockedAchievements" in st))st.unlockedAchievements=[];
+    if(!("luckyCount" in st))st.luckyCount=0;
     return true;
   }catch(e){return false;}
 }
+
+/* ============ UI ============ */
 
 var $=document.getElementById.bind(document);
 var cards={};
@@ -252,8 +356,9 @@ function switchTab(t){
   curTab=t;
   document.querySelectorAll(".tab-btn").forEach(function(b){b.classList.toggle("active",b.dataset.tab===t)});
   document.querySelectorAll(".panel").forEach(function(p){p.classList.remove("active")});
-  if(t==="businesses")$("panelBusinesses").classList.add("active");
+  if(t==="businesses"){$("panelBusinesses").classList.add("active");}
   else if(t==="upgrades"){$("panelUpgrades").classList.add("active");buildUpgrades();}
+  else if(t==="achievements"){$("panelAchievements").classList.add("active");buildAchievements();}
   else{$("panelPrestige").classList.add("active");buildPrestige();}
 }
 
@@ -262,10 +367,10 @@ function buildBiz(){
   var qtyDiv=document.createElement("div");
   qtyDiv.style.cssText="text-align:right;margin-bottom:10px";
   qtyDiv.innerHTML='<span style="font-size:.7rem;color:var(--text-dim);margin-right:6px">BUY:</span>';
-  [1,10,100].forEach(function(q){
+  [1,10,100,-1].forEach(function(q){
+    var label=q===-1?"MAX":"x"+q;
     var b=document.createElement("button");
-    b.textContent="x"+q;b.className="buy-qty"+(st.buyQty===q?" active":"");
-    b.style.cssText="background:var(--surface2);border:1px solid var(--border);color:"+(st.buyQty===q?"var(--cyan)":"var(--text-dim)")+";font-size:.7rem;padding:4px 10px;border-radius:6px;cursor:pointer;font-family:'Inter',sans-serif;font-weight:600;margin-left:4px";
+    b.textContent=label;b.className="qty-btn"+(st.buyQty===q?" active":"");
     b.addEventListener("click",function(){st.buyQty=q;buildBiz();});
     qtyDiv.appendChild(b);
   });
@@ -276,15 +381,18 @@ function buildBiz(){
     var card=document.createElement("div");
     card.className="business-card"+(s.level===0?" locked":"");
     card.setAttribute("data-id",b.id);
-    var qty=st.buyQty;
+    var qty=st.buyQty===-1?maxAfford(b,s.level):st.buyQty;
+    if(qty<1)qty=1;
     var cost=bulkCost(b,s.level,qty);
     var nm=nextMilestone(s.level);
+    var ps=s.level>0?income(b,s)/(cycleTime(b,s)/1000):0;
     card.innerHTML=
       '<div class="biz-top">'+
         '<div class="biz-icon">'+b.emoji+'</div>'+
         '<div class="biz-info">'+
           '<div class="biz-name">'+b.name+'</div>'+
-          '<div class="biz-detail">Lvl <span data-level>'+s.level+'</span> &middot; <span data-income>'+fmt(income(b,s))+'</span>/cycle &middot; '+((cycleTime(b,s)/1000).toFixed(1))+'s</div>'+
+          '<div class="biz-detail">Lvl '+s.level+' \u00B7 '+fmt(income(b,s))+'/cycle \u00B7 '+(cycleTime(b,s)/1000).toFixed(1)+'s</div>'+
+          (s.level>0?'<div class="biz-persec">'+fmt(ps)+'/sec</div>':'')+
           (nm?'<div class="milestone-next">\u{1F3AF} Next milestone: '+nm+' (x'+MILESTONE_MULT+')</div>':'')+
         '</div>'+
         '<div class="biz-level">Lv '+s.level+'</div>'+
@@ -292,8 +400,8 @@ function buildBiz(){
       '<div class="progress-wrap"><div class="progress-bar '+(s.running?"running":"idle")+'" data-progress></div></div>'+
       (s.level===0?'<div class="lock-badge">\u{1F512} Unlock for '+fmt(b.baseCost)+'</div>':'')+
       '<div class="biz-actions">'+
-        (b.id==="codebot"?'<button class="btn btn-run" data-run>\u26A1 Collect</button>':(!s.hasManager?'<button class="btn btn-run" data-run>\u25B6 Run</button>':''))+
-        '<button class="btn btn-buy" data-buy>\u2B06 '+(s.level===0?'Unlock':'Buy x'+qty)+' <span class="cost">'+fmt(cost)+'</span></button>'+
+        (b.id==="codebot"?'<button class="btn btn-run" data-run>\u26A1 Collect</button>':(!s.hasManager&&s.level>0?'<button class="btn btn-run" data-run>\u25B6 Run</button>':''))+
+        '<button class="btn btn-buy" data-buy>\u2B06 '+(s.level===0?'Unlock':'Buy '+(st.buyQty===-1?"MAX":"x"+qty))+' <span class="cost">'+fmt(cost)+'</span></button>'+
         '<button class="btn btn-manager'+(s.hasManager?' owned':'')+'" data-manager'+(s.hasManager?' disabled':'')+'>'+
           (s.hasManager?'\u2705 Mgr':'\u{1F454} Mgr <span class="cost">'+fmt(b.managerCost)+'</span>')+
         '</button>'+
@@ -308,21 +416,30 @@ function buildBiz(){
 }
 
 function buildUpgrades(){
-  var area=$("panelUpgrades");area.innerHTML="<h2 style='font-size:1.2rem;font-weight:800;margin-bottom:14px;color:var(--text)'>\u2B06 Cash Upgrades</h2>";
+  var area=$("panelUpgrades");area.innerHTML="";
+  area.innerHTML="<h2 style='font-size:1.2rem;font-weight:800;margin-bottom:6px;color:var(--text)'>\u2B06 Cash Upgrades</h2>"+
+    "<p style='font-size:.72rem;color:var(--text-dim);margin-bottom:14px'>Buy upgrades to multiply profits and speed for your businesses.</p>";
   var avail=0;
+  var lastTier="";
   UPGRADES.forEach(function(u){
     var owned=st.purchasedUpgrades.indexOf(u.id)>=0;
-    var canBuy=!owned&&st.money>=u.cost;
     if(!owned)avail++;
+    var tier="";
+    if(u.cost<5e3)tier="Early";else if(u.cost<100e3)tier="Growth";else if(u.cost<10e6)tier="Scale";
+    else if(u.cost<1e9)tier="Empire";else if(u.cost<100e9)tier="Dominion";else if(u.cost<10e12)tier="Ascension";
+    else if(u.cost<1e15)tier="Transcendence";else tier="Singularity";
+    if(tier!==lastTier){lastTier=tier;var h=document.createElement("div");h.className="section-head";h.textContent=tier;area.appendChild(h);}
     var d=document.createElement("div");
     d.className="upgrade-card"+(owned?" purchased":"");
+    var tname=u.target==="all"?"All businesses":bd(u.target).name;
+    var effect=u.type==="speed"?"speed x"+(1/u.mult):"profit x"+u.mult;
     d.innerHTML=
       '<div class="upgrade-info"><div class="upgrade-name">'+(u.type==="speed"?"\u23F1 ":"\u{1F4B0} ")+u.desc+'</div>'+
-      '<div class="upgrade-desc">'+(u.target==="all"?"All businesses":bd(u.target).name)+(u.type==="speed"?" speed x"+(1/u.mult):" profit x"+u.mult)+'</div></div>'+
+      '<div class="upgrade-desc">'+tname+' '+effect+'</div></div>'+
       '<div class="upgrade-cost">'+(owned?"\u2705":fmt(u.cost))+'</div>';
     if(!owned){
       d.style.cursor="pointer";
-      d.style.borderColor=canBuy?"rgba(6,214,160,.4)":"";
+      if(st.money>=u.cost)d.style.borderColor="rgba(6,214,160,.4)";
       d.addEventListener("click",function(){buyUpgrade(u.id)});
     }
     area.appendChild(d);
@@ -330,9 +447,29 @@ function buildUpgrades(){
   $("upgBadge").textContent=avail;
 }
 
+function buildAchievements(){
+  var area=$("panelAchievements");area.innerHTML="";
+  area.innerHTML="<h2 style='font-size:1.2rem;font-weight:800;margin-bottom:6px;color:var(--text)'>\u{1F3C6} Trophies</h2>"+
+    "<p style='font-size:.72rem;color:var(--text-dim);margin-bottom:4px'>Each trophy gives a permanent <strong>+5% profit boost</strong>.</p>"+
+    "<p style='font-size:.72rem;color:var(--gold);font-weight:700;margin-bottom:14px'>Current bonus: x"+achMult().toFixed(2)+" ("+st.unlockedAchievements.length+"/"+ACHIEVEMENTS.length+" unlocked)</p>";
+  var grid=document.createElement("div");grid.className="ach-grid";
+  ACHIEVEMENTS.forEach(function(a){
+    var unlocked=st.unlockedAchievements.indexOf(a.id)>=0;
+    var d=document.createElement("div");
+    d.className="ach-card "+(unlocked?"unlocked":"locked");
+    d.innerHTML='<div class="ach-icon">'+(unlocked?a.icon:"\u{1F512}")+'</div>'+
+      '<div class="ach-info"><div class="ach-name">'+(unlocked?a.name:"???")+'</div>'+
+      '<div class="ach-desc">'+a.desc+'</div></div>';
+    grid.appendChild(d);
+  });
+  area.appendChild(grid);
+  $("achBadge").textContent=st.unlockedAchievements.length+"/"+ACHIEVEMENTS.length;
+}
+
 function buildPrestige(){
   var area=$("panelPrestige");
   var pending=pendingCores();
+  var totalEverCores=st.totalCoresEarned+pending;
   area.innerHTML=
     '<div class="prestige-panel">'+
       '<h2>\u{1F9E0} Neural Cores</h2>'+
@@ -356,8 +493,8 @@ function buildPrestige(){
     d.className="upgrade-card"+(owned?" purchased":"");
     d.innerHTML=
       '<div class="upgrade-info"><div class="upgrade-name">\u{1F52E} '+cu.desc+'</div>'+
-      '<div class="upgrade-desc">Costs '+cu.cost+' Neural Cores</div></div>'+
-      '<div class="upgrade-cost" style="color:var(--pink)">'+(owned?"\u2705":cu.cost+" \u{1F9E0}")+'</div>';
+      '<div class="upgrade-desc">Costs '+fmtN(cu.cost)+' Neural Cores</div></div>'+
+      '<div class="upgrade-cost" style="color:var(--pink)">'+(owned?"\u2705":fmtN(cu.cost)+" \u{1F9E0}")+'</div>';
     if(!owned){
       d.style.cursor="pointer";
       d.style.borderColor=st.cores>=cu.cost?"rgba(236,72,153,.4)":"";
@@ -367,24 +504,48 @@ function buildPrestige(){
   });
 }
 
-function startBiz(id,e){var s=bs(id);if(s.level<=0||s.running)return;s.running=true;s.progress=0;
-  if(id==="codebot"&&e){var def=bd(id);var inc=income(def,s);st.money+=inc;st.lifetime+=inc;st.totalLifetime+=inc;spawnFloat(e.clientX,e.clientY,"+"+fmt(inc));}
+/* ============ ACTIONS ============ */
+
+function startBiz(id,e){
+  var s=bs(id);if(s.level<=0||s.running)return;
+  s.running=true;s.progress=0;
+  if(id==="codebot"&&e){
+    var def=bd(id);var inc=income(def,s);
+    var lucky=Math.random()<0.05;
+    if(lucky){inc*=7;st.luckyCount++;}
+    st.money+=inc;st.lifetime+=inc;st.totalLifetime+=inc;
+    spawnFloat(e.clientX,e.clientY,(lucky?"\u{1F340} ":"")+"+"+fmt(inc),lucky);
+  }
 }
-function collectIncome(id){var s=bs(id),d=bd(id),inc=income(d,s);st.money+=inc;st.lifetime+=inc;st.totalLifetime+=inc;s.running=false;s.progress=0;if(s.hasManager)s.running=true;}
+
+function collectIncome(id){
+  var s=bs(id),d=bd(id),inc=income(d,s);
+  var lucky=Math.random()<0.05;
+  if(lucky){inc*=7;st.luckyCount++;}
+  st.money+=inc;st.lifetime+=inc;st.totalLifetime+=inc;
+  s.running=false;s.progress=0;
+  if(s.hasManager)s.running=true;
+  if(lucky)showToast("\u{1F340} LUCKY 7x! "+d.name+" paid "+fmt(inc));
+}
 
 function buyBiz(id){
-  var s=bs(id),d=bd(id),qty=st.buyQty,cost=bulkCost(d,s.level,qty);
+  var s=bs(id),d=bd(id);
+  var qty=st.buyQty===-1?maxAfford(d,s.level):st.buyQty;
+  if(qty<1)qty=1;
+  var cost=bulkCost(d,s.level,qty);
   if(st.money<cost)return;
   st.money-=cost;s.level+=qty;
   if(s.level>0&&s.hasManager&&!s.running)s.running=true;
   buildBiz();showToast(d.emoji+" "+d.name+(qty>1?" x"+qty:"")+" "+(s.level<=qty?"unlocked!":"upgraded to Lv "+s.level));save();
 }
+
 function buyMgr(id){
   var s=bs(id),d=bd(id);
   if(st.money<d.managerCost||s.hasManager)return;
   st.money-=d.managerCost;s.hasManager=true;if(s.level>0)s.running=true;
   buildBiz();showToast("\u{1F454} Manager hired for "+d.name);save();
 }
+
 function buyUpgrade(uid){
   var u=UPGRADES.find(function(x){return x.id===uid});
   if(!u||st.purchasedUpgrades.indexOf(uid)>=0||st.money<u.cost)return;
@@ -394,28 +555,77 @@ function buyUpgrade(uid){
   }else{
     var b=bs(u.target);if(u.type==="speed")b.speedMult*=u.mult;else b.profitMult*=u.mult;
   }
-  buildUpgrades();showToast("\u2B06 "+u.desc);save();
+  buildUpgrades();buildBiz();showToast("\u2B06 "+u.desc);save();
 }
+
 function buyCoreUpgrade(cid){
   var cu=CORE_UPGRADES.find(function(x){return x.id===cid});
   if(!cu||st.purchasedCoreUpgrades.indexOf(cid)>=0||st.cores<cu.cost)return;
-  st.cores-=cu.cost;st.coresSacrificed+=cu.cost;st.purchasedCoreUpgrades.push(cid);
+  st.cores-=cu.cost;st.purchasedCoreUpgrades.push(cid);
   if(cu.mult)st.coreMult*=cu.mult;
   if(cu.coreBoost)st.coreBonus+=cu.coreBoost;
   buildPrestige();showToast("\u{1F52E} "+cu.desc);save();
 }
+
 function doPrestige(){
   var p=pendingCores();if(p<1)return;
-  st.cores+=p;st.money=0;st.lifetime=0;
+  st.cores+=p;st.totalCoresEarned+=p;
+  st.money=0;st.lifetime=0;
   st.purchasedUpgrades=[];
   st.biz=BIZ.map(function(b){return{id:b.id,level:b.id==="codebot"?1:0,hasManager:false,progress:0,running:false,speedMult:1,profitMult:1}});
   buildBiz();buildPrestige();
   showToast("\u{1F9E0} Earned "+fmtN(p)+" Neural Cores! All profits boosted!");save();
 }
 
-function spawnFloat(x,y,t){var e=document.createElement("div");e.className="float-text";e.textContent=t;e.style.left=x+"px";e.style.top=y+"px";document.body.appendChild(e);setTimeout(function(){e.remove()},900)}
+/* ============ ACHIEVEMENTS ============ */
+
+function checkAchievements(){
+  var any=false;
+  var checks={
+    a1:function(){return bs("codebot").level>=1},
+    a2:function(){return st.totalLifetime>=1e3},
+    a3:function(){return st.totalLifetime>=1e6},
+    a4:function(){return st.totalLifetime>=1e9},
+    a5:function(){return st.totalLifetime>=1e12},
+    a6:function(){return st.totalLifetime>=1e15},
+    a7:function(){return st.totalLifetime>=1e18},
+    a8:function(){var c=0;st.biz.forEach(function(b){if(b.level>0)c++});return c>=3},
+    a9:function(){var c=0;st.biz.forEach(function(b){if(b.level>0)c++});return c>=8},
+    a10:function(){return st.biz.some(function(b){return b.hasManager})},
+    a11:function(){return st.biz.every(function(b){return b.hasManager})},
+    a12:function(){return st.totalCoresEarned>0},
+    a13:function(){return st.totalCoresEarned>=100},
+    a14:function(){return st.biz.some(function(b){return b.level>=100})},
+    a15:function(){return st.purchasedUpgrades.some(function(id){var u=UPGRADES.find(function(x){return x.id===id});return u&&u.type==="speed"})},
+    a16:function(){return st.purchasedUpgrades.length>=10},
+    a17:function(){return st.purchasedUpgrades.length>=25},
+    a18:function(){return st.luckyCount>0},
+    a19:function(){return st.biz.some(function(b){return b.level>=25})},
+    a20:function(){return st.money>=1e9}
+  };
+  for(var i=0;i<ACHIEVEMENTS.length;i++){
+    var a=ACHIEVEMENTS[i];
+    if(st.unlockedAchievements.indexOf(a.id)>=0)continue;
+    if(checks[a.id]&&checks[a.id]()){
+      st.unlockedAchievements.push(a.id);
+      showToast(a.icon+" Achievement: "+a.name+" (+5% profit)");
+      any=true;
+    }
+  }
+  if(any){save();$("achBadge").textContent=st.unlockedAchievements.length+"/"+ACHIEVEMENTS.length;}
+}
+
+/* ============ EFFECTS ============ */
+
+function spawnFloat(x,y,t,lucky){
+  var e=document.createElement("div");e.className="float-text"+(lucky?" lucky":"");
+  e.textContent=t;e.style.left=x+"px";e.style.top=y+"px";
+  document.body.appendChild(e);setTimeout(function(){e.remove()},900);
+}
 var toastTO;
-function showToast(m){var t=document.querySelector(".toast");if(t)t.remove();t=document.createElement("div");t.className="toast";t.textContent=m;document.body.appendChild(t);clearTimeout(toastTO);toastTO=setTimeout(function(){t.remove()},2200)}
+function showToast(m){var t=document.querySelector(".toast");if(t)t.remove();t=document.createElement("div");t.className="toast";t.textContent=m;document.body.appendChild(t);clearTimeout(toastTO);toastTO=setTimeout(function(){t.remove()},2500)}
+
+/* ============ UPDATE ============ */
 
 function updateUI(){
   $("sMoney").textContent=fmt(st.money);
@@ -426,8 +636,10 @@ function updateUI(){
   for(var i=0;i<BIZ.length;i++){
     var b=BIZ[i],s=bs(b.id),c=cards[b.id];
     if(!c)continue;
+    var qty=st.buyQty===-1?maxAfford(b,s.level):st.buyQty;
+    if(qty<1)qty=1;
     var buyBtn=c.card.querySelector("[data-buy]");
-    if(buyBtn)buyBtn.disabled=st.money<bulkCost(b,s.level,st.buyQty);
+    if(buyBtn)buyBtn.disabled=st.money<bulkCost(b,s.level,qty);
     var runBtn=c.card.querySelector("[data-run]");
     if(runBtn){runBtn.disabled=s.level<=0||(s.running&&b.id!=="codebot");if(b.id==="codebot")runBtn.disabled=s.level<=0;}
     var mgrBtn=c.card.querySelector("[data-manager]");
@@ -437,6 +649,8 @@ function updateUI(){
   $("upgBadge").textContent=avail;
 }
 
+/* ============ GAME LOOP ============ */
+
 var last=performance.now();
 function tick(now){
   var dt=now-last;last=now;
@@ -445,8 +659,11 @@ function tick(now){
     if(!c)continue;
     if(s.level>0&&s.running){
       var ct=cycleTime(b,s);s.progress+=dt;
-      if(s.progress>=ct){collectIncome(b.id);s.progress=s.hasManager?s.progress-ct:0;
-        if(!s.hasManager){s.running=false;c.bar.className="progress-bar idle";c.bar.style.width="0%";}}
+      if(s.progress>=ct){
+        collectIncome(b.id);
+        s.progress=s.hasManager?s.progress-ct:0;
+        if(!s.hasManager){s.running=false;c.bar.className="progress-bar idle";c.bar.style.width="0%";}
+      }
       if(s.running){c.bar.style.width=Math.min(s.progress/ct*100,100)+"%";c.bar.className="progress-bar running";}
     }
   }
@@ -464,6 +681,8 @@ function offlineEarnings(){
   showToast("Welcome back! Earned "+fmt(earned)+" while away ("+Math.floor(elapsed/60)+"m)");
 }
 
+/* ============ INIT ============ */
+
 document.querySelectorAll(".tab-btn").forEach(function(b){b.addEventListener("click",function(){switchTab(b.dataset.tab)})});
 
 document.addEventListener("click",function(e){
@@ -472,17 +691,24 @@ document.addEventListener("click",function(e){
   var id=c.getAttribute("data-id");
   if(id==="codebot"){var s=bs("codebot"),d=bd("codebot");
     if(s.level>0){if(!s.running){s.running=true;s.progress=0;}
-      var inc=income(d,s);st.money+=inc;st.lifetime+=inc;st.totalLifetime+=inc;spawnFloat(e.clientX,e.clientY,"+"+fmt(inc));}}
+      var inc=income(d,s);
+      var lucky=Math.random()<0.05;
+      if(lucky){inc*=7;st.luckyCount++;}
+      st.money+=inc;st.lifetime+=inc;st.totalLifetime+=inc;
+      spawnFloat(e.clientX,e.clientY,(lucky?"\u{1F340} ":"")+"+"+fmt(inc),lucky);
+    }
+  }
 });
 
 st=defaults();
 if(load()){offlineEarnings();}
 st.lastTick=Date.now();
-buildBiz();updateUI();
+buildBiz();updateUI();checkAchievements();
 for(var i=0;i<BIZ.length;i++){var s=bs(BIZ[i].id);if(s.hasManager&&s.level>0){s.running=true;s.progress=0;}}
 last=performance.now();
 requestAnimationFrame(tick);
 setInterval(function(){st.lastTick=Date.now();save();},5000);
+setInterval(checkAchievements,2000);
 
 })();
 </script>
