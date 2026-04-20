@@ -12,571 +12,477 @@
   --text:#e2e8f0;--text-dim:#64748b;--cyan:#06d6a0;--purple:#a855f7;
   --pink:#ec4899;--amber:#f59e0b;--red:#ef4444;--blue:#3b82f6;
 }
-html{font-size:16px}
-body{
-  font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);
-  min-height:100vh;overflow-x:hidden;
-}
+html{font-size:15px}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
 a{color:var(--cyan);text-decoration:none}
 a:hover{text-decoration:underline}
 
-.top-nav{
-  padding:14px 24px;background:rgba(6,214,160,.08);border-bottom:1px solid var(--border);
-  font-size:1.1rem;font-weight:700;
-}
-.top-nav a{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:10px 24px;border-radius:10px;
-  background:rgba(6,214,160,.12);color:var(--cyan);
-  transition:background .2s;
-}
+.top-nav{padding:14px 24px;background:rgba(6,214,160,.08);border-bottom:1px solid var(--border);font-size:1.1rem;font-weight:700}
+.top-nav a{display:inline-flex;align-items:center;gap:8px;padding:10px 24px;border-radius:10px;background:rgba(6,214,160,.12);color:var(--cyan);transition:background .2s}
 .top-nav a:hover{background:rgba(6,214,160,.22);text-decoration:none}
 
-header{
-  text-align:center;padding:28px 20px 18px;
-  background:linear-gradient(180deg,rgba(168,85,247,.1) 0%,transparent 100%);
-  border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;
-  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-  background-color:rgba(10,14,23,.85);
-}
-header h1{
-  font-size:1.8rem;font-weight:900;letter-spacing:-1px;
-  background:linear-gradient(135deg,var(--cyan),var(--purple));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;margin-bottom:6px;
-}
-header h1 span{font-size:1.4rem;margin-right:6px}
-.stats{display:flex;justify-content:center;gap:32px;flex-wrap:wrap}
+header{text-align:center;padding:20px 20px 14px;background:linear-gradient(180deg,rgba(168,85,247,.1) 0%,transparent 100%);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;backdrop-filter:blur(12px);background-color:rgba(10,14,23,.88)}
+header h1{font-size:1.6rem;font-weight:900;letter-spacing:-1px;background:linear-gradient(135deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:4px}
+.stats{display:flex;justify-content:center;gap:24px;flex-wrap:wrap}
 .stat{text-align:center}
-.stat-label{font-size:.7rem;text-transform:uppercase;letter-spacing:1px;color:var(--text-dim)}
-.stat-value{font-size:1.4rem;font-weight:700;font-family:'JetBrains Mono',monospace;color:var(--cyan)}
-.stat-value.persec{color:var(--purple);font-size:1rem}
+.stat-label{font-size:.65rem;text-transform:uppercase;letter-spacing:1px;color:var(--text-dim)}
+.stat-value{font-size:1.2rem;font-weight:700;font-family:'JetBrains Mono',monospace;color:var(--cyan)}
+.stat-value.persec{color:var(--purple);font-size:.9rem}
+.stat-value.cores{color:var(--pink)}
 
-main{max-width:720px;margin:0 auto;padding:20px 16px 80px}
+.tabs{display:flex;justify-content:center;gap:6px;padding:10px 16px;background:var(--surface);border-bottom:1px solid var(--border)}
+.tab-btn{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:7px 18px;font-size:.78rem;font-weight:600;color:var(--text-dim);cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s}
+.tab-btn:hover{border-color:var(--cyan);color:var(--text)}
+.tab-btn.active{background:rgba(6,214,160,.12);border-color:var(--cyan);color:var(--cyan)}
+.tab-btn .badge{font-family:'JetBrains Mono',monospace;background:var(--purple);color:#fff;font-size:.65rem;padding:1px 6px;border-radius:6px;margin-left:6px}
 
-.business-card{
-  background:var(--surface);border:1px solid var(--border);border-radius:14px;
-  padding:18px 20px;margin-bottom:14px;
-  transition:border-color .2s,box-shadow .2s;position:relative;overflow:hidden;
-}
+.panel{display:none;max-width:760px;margin:0 auto;padding:16px}
+.panel.active{display:block}
+
+.business-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:12px;transition:border-color .2s,box-shadow .2s;position:relative}
 .business-card:hover{border-color:rgba(6,214,160,.3);box-shadow:0 0 20px rgba(6,214,160,.05)}
-.business-card.locked .biz-top{opacity:.4;filter:grayscale(.5)}
-.business-card.locked .progress-wrap{opacity:.3}
-.lock-badge{
-  display:inline-flex;align-items:center;gap:6px;
-  font-size:.8rem;color:var(--amber);font-weight:700;font-family:'JetBrains Mono',monospace;
-  background:rgba(245,158,11,.1);padding:4px 12px;border-radius:8px;margin-bottom:8px;
-}
+.business-card.locked .biz-top{opacity:.35;filter:grayscale(.5)}
+.business-card.locked .progress-wrap{opacity:.2}
+.lock-badge{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;color:var(--amber);font-weight:700;font-family:'JetBrains Mono',monospace;background:rgba(245,158,11,.1);padding:3px 10px;border-radius:8px;margin-bottom:6px}
 
-.biz-top{display:flex;align-items:center;gap:14px;margin-bottom:12px}
-.biz-icon{
-  font-size:2rem;width:52px;height:52px;border-radius:12px;
-  display:flex;align-items:center;justify-content:center;
-  background:var(--surface2);flex-shrink:0;
-}
+.biz-top{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.biz-icon{font-size:1.8rem;width:46px;height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:var(--surface2);flex-shrink:0}
 .biz-info{flex:1;min-width:0}
-.biz-name{font-weight:700;font-size:1rem;margin-bottom:2px}
-.biz-detail{font-size:.75rem;color:var(--text-dim);font-family:'JetBrains Mono',monospace}
-.biz-level{
-  font-size:.7rem;background:var(--surface2);color:var(--cyan);
-  padding:2px 8px;border-radius:6px;font-weight:600;white-space:nowrap;
-}
+.biz-name{font-weight:700;font-size:.95rem;margin-bottom:1px}
+.biz-detail{font-size:.72rem;color:var(--text-dim);font-family:'JetBrains Mono',monospace}
+.biz-level{font-size:.68rem;background:var(--surface2);color:var(--cyan);padding:2px 8px;border-radius:6px;font-weight:600;white-space:nowrap}
+.milestone-next{font-size:.6rem;color:var(--amber);margin-top:2px;font-family:'JetBrains Mono',monospace}
 
-.progress-wrap{
-  height:8px;background:var(--surface2);border-radius:99px;overflow:hidden;margin-bottom:14px;
-}
-.progress-bar{
-  height:100%;border-radius:99px;width:0%;
-  transition:width .08s linear;
-}
+.progress-wrap{height:7px;background:var(--surface2);border-radius:99px;overflow:hidden;margin-bottom:12px}
+.progress-bar{height:100%;border-radius:99px;width:0%;transition:width .08s linear}
 .progress-bar.running{background:linear-gradient(90deg,var(--cyan),var(--purple))}
 .progress-bar.idle{background:var(--text-dim);width:0%}
 
-.biz-actions{display:flex;gap:8px;flex-wrap:wrap}
-.btn{
-  border:none;border-radius:10px;padding:9px 16px;font-size:.78rem;
-  font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;
-  transition:transform .1s,box-shadow .15s,opacity .15s;
-  display:inline-flex;align-items:center;gap:6px;
-}
+.biz-actions{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.buy-qty{display:flex;gap:3px;margin-left:auto}
+.buy-qty button{background:var(--surface2);border:1px solid var(--border);color:var(--text-dim);font-size:.65rem;padding:3px 8px;border-radius:6px;cursor:pointer;font-family:'Inter',sans-serif;font-weight:600;transition:all .15s}
+.buy-qty button:hover,.buy-qty button.active{border-color:var(--cyan);color:var(--cyan);background:rgba(6,214,160,.1)}
+
+.btn{border:none;border-radius:10px;padding:8px 14px;font-size:.75rem;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:transform .1s,box-shadow .15s,opacity .15s;display:inline-flex;align-items:center;gap:5px}
 .btn:active{transform:scale(.96)}
-.btn:disabled{opacity:.35;cursor:not-allowed;transform:none}
+.btn:disabled{opacity:.3;cursor:not-allowed;transform:none}
 .btn-buy{background:linear-gradient(135deg,#065f46,#047857);color:#6ee7b7}
-.btn-buy:not(:disabled):hover{box-shadow:0 0 16px rgba(6,214,160,.3)}
+.btn-buy:not(:disabled):hover{box-shadow:0 0 14px rgba(6,214,160,.3)}
 .btn-run{background:linear-gradient(135deg,#1e1b4b,#3730a3);color:#a5b4fc}
-.btn-run:not(:disabled):hover{box-shadow:0 0 16px rgba(99,102,241,.3)}
+.btn-run:not(:disabled):hover{box-shadow:0 0 14px rgba(99,102,241,.3)}
 .btn-manager{background:linear-gradient(135deg,#581c87,#7e22ce);color:#d8b4fe}
-.btn-manager:not(:disabled):hover{box-shadow:0 0 16px rgba(168,85,247,.3)}
-.btn-manager.owned{background:#1a0a2e;color:var(--purple);cursor:default;opacity:.7}
+.btn-manager:not(:disabled):hover{box-shadow:0 0 14px rgba(168,85,247,.3)}
+.btn-manager.owned{background:#1a0a2e;color:var(--purple);cursor:default;opacity:.6}
+.btn-prestige{background:linear-gradient(135deg,#831843,#be185d);color:#fda4af;font-size:.85rem;padding:12px 24px}
+.btn-prestige:not(:disabled):hover{box-shadow:0 0 20px rgba(236,72,153,.3)}
+.btn .cost{font-family:'JetBrains Mono',monospace;font-size:.68rem;opacity:.85}
 
-.btn .cost{font-family:'JetBrains Mono',monospace;font-size:.72rem;opacity:.85}
+.upgrade-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:10px;display:flex;align-items:center;gap:14px;transition:border-color .2s}
+.upgrade-card:hover{border-color:rgba(168,85,247,.3)}
+.upgrade-card.purchased{opacity:.4;pointer-events:none}
+.upgrade-info{flex:1}
+.upgrade-name{font-weight:700;font-size:.88rem;margin-bottom:2px}
+.upgrade-desc{font-size:.72rem;color:var(--text-dim)}
+.upgrade-cost{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--amber);font-weight:700;white-space:nowrap}
 
-.float-text{
-  position:fixed;pointer-events:none;font-weight:700;font-size:1.1rem;
-  font-family:'JetBrains Mono',monospace;color:var(--cyan);z-index:999;
-  animation:floatUp .9s ease-out forwards;
-}
-@keyframes floatUp{
-  0%{opacity:1;transform:translateY(0) scale(1)}
-  100%{opacity:0;transform:translateY(-60px) scale(.7)}
-}
+.prestige-panel{text-align:center;padding:40px 20px}
+.prestige-panel h2{font-size:1.6rem;font-weight:900;color:var(--pink);margin-bottom:8px}
+.prestige-panel .sub{color:var(--text-dim);font-size:.9rem;margin-bottom:24px;max-width:500px;margin-left:auto;margin-right:auto}
+.prestige-info{display:flex;justify-content:center;gap:32px;flex-wrap:wrap;margin-bottom:28px}
+.prestige-stat{text-align:center}
+.prestige-stat .label{font-size:.7rem;text-transform:uppercase;letter-spacing:1px;color:var(--text-dim)}
+.prestige-stat .val{font-size:1.4rem;font-weight:800;font-family:'JetBrains Mono',monospace;color:var(--pink)}
+.core-upgrades{max-width:500px;margin:24px auto 0;text-align:left}
+.core-upgrades h3{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:12px}
 
-.toast{
-  position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
-  background:var(--surface2);border:1px solid var(--purple);border-radius:10px;
-  padding:10px 20px;font-size:.82rem;color:var(--purple);font-weight:600;
-  z-index:1000;animation:toastIn .3s ease-out;pointer-events:none;
-}
-@keyframes toastIn{
-  0%{opacity:0;transform:translateX(-50%) translateY(20px)}
-  100%{opacity:1;transform:translateX(-50%) translateY(0)}
-}
+.float-text{position:fixed;pointer-events:none;font-weight:700;font-size:1rem;font-family:'JetBrains Mono',monospace;color:var(--cyan);z-index:999;animation:floatUp .9s ease-out forwards}
+@keyframes floatUp{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-60px) scale(.7)}}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--surface2);border:1px solid var(--purple);border-radius:10px;padding:10px 20px;font-size:.8rem;color:var(--purple);font-weight:600;z-index:1000;animation:toastIn .3s ease-out;pointer-events:none}
+@keyframes toastIn{0%{opacity:0;transform:translateX(-50%) translateY(20px)}100%{opacity:1;transform:translateX(-50%) translateY(0)}}
 
-.win-overlay{
-  position:fixed;inset:0;background:rgba(10,14,23,.92);z-index:2000;
-  display:flex;align-items:center;justify-content:center;flex-direction:column;
-  animation:fadeIn .5s ease-out;
-}
-.win-overlay h2{
-  font-size:2.4rem;font-weight:900;
-  background:linear-gradient(135deg,var(--cyan),var(--purple),var(--pink));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;margin-bottom:10px;
-}
-.win-overlay p{color:var(--text-dim);font-size:1rem;margin-bottom:24px}
-.win-overlay .btn{font-size:1rem;padding:12px 28px}
-@keyframes fadeIn{0%{opacity:0}100%{opacity:1}}
+footer{text-align:center;padding:20px;font-size:.7rem;color:var(--text-dim)}
 
-footer{
-  text-align:center;padding:20px;font-size:.7rem;color:var(--text-dim);
-}
-
-@media(max-width:500px){
-  header h1{font-size:1.3rem}
-  .stats{gap:16px}
-  .stat-value{font-size:1.1rem}
+@media(max-width:600px){
+  header h1{font-size:1.2rem}
+  .stats{gap:12px}
+  .stat-value{font-size:1rem}
   .biz-actions{flex-direction:column}
   .btn{width:100%;justify-content:center}
+  .buy-qty{margin-left:0;justify-content:center}
+  .tabs{overflow-x:auto;justify-content:flex-start;gap:4px;padding:8px 12px}
 }
 </style>
 </head>
 <body>
 
-<nav class="top-nav"><a href="fromscratch.html">&larr; Back to Scratch Page</a></nav>
+<nav class="top-nav"><a href="fromscratch.html">&#8592; Back to Scratch Page</a></nav>
 
 <header>
-  <h1><span>&#x1F916;</span> AI Startup Tycoon</h1>
+  <h1>&#x1F916; AI Startup Tycoon</h1>
   <div class="stats">
-    <div class="stat">
-      <div class="stat-label">Funding</div>
-      <div class="stat-value" id="totalMoney">$0</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">Revenue / sec</div>
-      <div class="stat-value persec" id="perSec">$0/s</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">Lifetime</div>
-      <div class="stat-value persec" id="lifetime">$0</div>
-    </div>
+    <div class="stat"><div class="stat-label">Funding</div><div class="stat-value" id="sMoney">$0</div></div>
+    <div class="stat"><div class="stat-label">$/sec</div><div class="stat-value persec" id="sPerSec">$0/s</div></div>
+    <div class="stat"><div class="stat-label">Lifetime</div><div class="stat-value persec" id="sLifetime">$0</div></div>
+    <div class="stat"><div class="stat-label">Neural Cores</div><div class="stat-value cores" id="sCores">0</div></div>
   </div>
 </header>
 
-<main id="gameArea"></main>
+<div class="tabs">
+  <button class="tab-btn active" data-tab="businesses">&#x1F3E2; Businesses</button>
+  <button class="tab-btn" data-tab="upgrades">&#x2B06; Upgrades <span class="badge" id="upgBadge">0</span></button>
+  <button class="tab-btn" data-tab="prestige">&#x1F9E0; Neural Cores</button>
+</div>
 
-<footer>AI Startup Tycoon &mdash; an idle clicker game</footer>
+<div id="panelBusinesses" class="panel active"></div>
+<div id="panelUpgrades" class="panel"></div>
+<div id="panelPrestige" class="panel"></div>
+
+<footer>AI Startup Tycoon &mdash; an idle clicker game built with AI</footer>
 
 <script>
 (function(){
 "use strict";
 
-var BUSINESSES = [
-  {id:"codebot",  name:"Code Bot",        emoji:"\u{1F916}", baseCost:10,      baseIncome:1,    baseTime:1000, managerCost:100},
-  {id:"scraper",  name:"Data Scraper",     emoji:"\u{1F577}\uFE0F", baseCost:100,     baseIncome:5,    baseTime:2000, managerCost:1000},
-  {id:"chatbot",  name:"Chat Assistant",   emoji:"\u{1F4AC}", baseCost:1000,    baseIncome:25,   baseTime:3000, managerCost:12000},
-  {id:"imagegen", name:"Image Generator",  emoji:"\u{1F3A8}", baseCost:10000,   baseIncome:100,  baseTime:4500, managerCost:150000},
-  {id:"agent",    name:"AI Agent",         emoji:"\u{1F9E0}", baseCost:100000,  baseIncome:500,  baseTime:6000, managerCost:1500000},
-  {id:"agi",      name:"AGI Research Lab", emoji:"\u{1F52C}", baseCost:1000000, baseIncome:5000, baseTime:8000, managerCost:15000000}
+var BIZ = [
+  {id:"codebot",  name:"Code Bot",          emoji:"\u{1F916}", baseCost:4,        baseIncome:.6,      baseTime:600,   managerCost:40},
+  {id:"scraper",  name:"Data Scraper",       emoji:"\u{1F577}\uFE0F", baseCost:60,       baseIncome:3.6,     baseTime:3000,  managerCost:600},
+  {id:"chatbot",  name:"Chat Assistant",     emoji:"\u{1F4AC}", baseCost:720,      baseIncome:28.8,    baseTime:6000,  managerCost:7200},
+  {id:"imagegen", name:"Image Generator",    emoji:"\u{1F3A8}", baseCost:8640,     baseIncome:172.8,   baseTime:12000, managerCost:86400},
+  {id:"voiceai",  name:"Voice AI",           emoji:"\u{1F399}\uFE0F", baseCost:103680,   baseIncome:1036.8,  baseTime:24000, managerCost:1036800},
+  {id:"agent",    name:"AI Agent",           emoji:"\u{1F9E0}", baseCost:1244160,  baseIncome:6220.8,  baseTime:48000, managerCost:12441600},
+  {id:"infra",    name:"GPU Cloud",          emoji:"\u{2601}\uFE0F",  baseCost:14929920, baseIncome:37324.8, baseTime:96000, managerCost:149299200},
+  {id:"agi",      name:"AGI Research Lab",   emoji:"\u{1F52C}", baseCost:179159040,baseIncome:223948.8,baseTime:192000,managerCost:1791590400}
+];
+var COST_MULT=1.07;
+var MILESTONES=[25,50,100,200,300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2500,3000,4000,5000];
+var MILESTONE_MULT=2;
+
+var UPGRADES=[
+  {id:"u1",cost:500,target:"codebot",mult:3,desc:"Overclock the Code Bot"},
+  {id:"u2",cost:2500,target:"scraper",mult:3,desc:"Parallel scraping threads"},
+  {id:"u3",cost:25e3,target:"chatbot",mult:3,desc:"Fine-tuned language model"},
+  {id:"u4",cost:250e3,target:"imagegen",mult:3,desc:"Diffusion model v2"},
+  {id:"u5",cost:2.5e6,target:"voiceai",mult:3,desc:"Real-time voice cloning"},
+  {id:"u6",cost:25e6,target:"agent",mult:3,desc:"Multi-agent orchestration"},
+  {id:"u7",cost:250e6,target:"infra",mult:3,desc:"Distributed GPU mesh"},
+  {id:"u8",cost:2.5e9,target:"agi",mult:3,desc:"Recursive self-improvement"},
+  {id:"u9",cost:5000,target:"all",mult:2,desc:"All businesses x2 profit"},
+  {id:"u10",cost:500e3,target:"all",mult:2,desc:"Enterprise licensing deals"},
+  {id:"u11",cost:50e6,target:"all",mult:2,desc:"Government AI contracts"},
+  {id:"u12",cost:5e9,target:"all",mult:2,desc:"Global AI dominance"},
+  {id:"u13",cost:100,target:"codebot",type:"speed",mult:.5,desc:"Speed: Code Bot 2x faster"},
+  {id:"u14",cost:10000,target:"scraper",type:"speed",mult:.5,desc:"Speed: Data Scraper 2x faster"},
+  {id:"u15",cost:1e6,target:"chatbot",type:"speed",mult:.5,desc:"Speed: Chat Assistant 2x faster"},
+  {id:"u16",cost:1e8,target:"all",type:"speed",mult:.5,desc:"Speed: All businesses 2x faster"}
 ];
 
-var COST_MULT = 1.15;
-var SPEED_LEVELS = [25, 50, 100, 150, 200];
-var WIN_AMOUNT = 1e11;
+var CORE_UPGRADES=[
+  {id:"cu1",cost:5,mult:2,desc:"All profits x2 (permanent)"},
+  {id:"cu2",cost:25,mult:3,desc:"All profits x3 (permanent)"},
+  {id:"cu3",cost:100,coreBoost:.01,desc:"Neural Core effectiveness +1%"},
+  {id:"cu4",cost:500,mult:5,desc:"All profits x5 (permanent)"},
+  {id:"cu5",cost:2000,coreBoost:.02,desc:"Neural Core effectiveness +2%"},
+  {id:"cu6",cost:10000,mult:10,desc:"All profits x10 (permanent)"}
+];
 
-var state = getDefaultState();
-
-function getDefaultState(){
-  return {
-    money: 0,
-    lifetimeMoney: 0,
-    businesses: BUSINESSES.map(function(b){
-      return { id: b.id, level: b.id === "codebot" ? 1 : 0, hasManager: false, progress: 0, running: false };
-    }),
-    won: false
-  };
+var st;
+function defaults(){
+  return{money:0,lifetime:0,totalLifetime:0,cores:0,coresSacrificed:0,coreBonus:.02,
+    coreMult:1,buyQty:1,purchasedUpgrades:[],purchasedCoreUpgrades:[],
+    biz:BIZ.map(function(b){return{id:b.id,level:b.id==="codebot"?1:0,hasManager:false,progress:0,running:false,speedMult:1,profitMult:1}}),
+    lastTick:Date.now()};
 }
+function bs(id){return st.biz.find(function(b){return b.id===id})}
+function bd(id){return BIZ.find(function(b){return b.id===id})}
 
-function getBizState(id){ return state.businesses.find(function(b){return b.id===id;}); }
-function getBizDef(id){ return BUSINESSES.find(function(b){return b.id===id;}); }
-
-function getCost(def, level){
-  if(level === 0) return def.baseCost;
-  return Math.floor(def.baseCost * Math.pow(COST_MULT, level));
-}
-
-function getIncome(def, level){
-  if(level <= 0) return 0;
-  return def.baseIncome * level * (1 + (level - 1) * 0.04);
-}
-
-function getCycleTime(def, level){
-  var t = def.baseTime;
-  for(var i = 0; i < SPEED_LEVELS.length; i++){
-    if(level >= SPEED_LEVELS[i]) t *= 0.8;
-    else break;
-  }
-  return Math.max(t, 500);
-}
-
-function getTotalPerSec(){
-  var total = 0;
-  for(var i = 0; i < BUSINESSES.length; i++){
-    var b = BUSINESSES[i];
-    var bs = getBizState(b.id);
-    if(bs.level > 0 && bs.hasManager){
-      total += getIncome(b, bs.level) / (getCycleTime(b, bs.level) / 1000);
-    }
-  }
+function bulkCost(def,curLv,qty){
+  var total=0;
+  for(var i=0;i<qty;i++) total+=Math.floor(def.baseCost*Math.pow(COST_MULT,curLv+i));
   return total;
 }
+function income(def,b){
+  var base=def.baseIncome*b.level;
+  var msMult=1;
+  for(var i=0;i<MILESTONES.length;i++){if(b.level>=MILESTONES[i])msMult*=MILESTONE_MULT;else break;}
+  return base*b.profitMult*msMult*st.coreMult*(1+st.cores*st.coreBonus);
+}
+function cycleTime(def,b){return Math.max(def.baseTime*b.speedMult,100)}
 
-function formatMoney(n){
-  if(n < 0) return "-" + formatMoney(-n);
-  if(n < 1000) return "$" + Math.floor(n).toLocaleString();
-  var suffixes = ["","K","M","B","T","Qa","Qi","Sx","Sp","Oc"];
-  var tier = 0, scaled = n;
-  while(scaled >= 1000 && tier < suffixes.length - 1){ scaled /= 1000; tier++; }
-  return "$" + scaled.toFixed(scaled < 10 ? 2 : scaled < 100 ? 1 : 0) + suffixes[tier];
+function perSec(){
+  var t=0;
+  for(var i=0;i<BIZ.length;i++){var b=bs(BIZ[i].id);if(b.level>0&&b.hasManager)t+=income(BIZ[i],b)/(cycleTime(BIZ[i],b)/1000);}
+  return t;
+}
+function pendingCores(){return Math.max(0,Math.floor(Math.pow(st.totalLifetime/1e10,.5))-st.coresSacrificed)}
+function nextMilestone(lv){for(var i=0;i<MILESTONES.length;i++){if(lv<MILESTONES[i])return MILESTONES[i];}return null;}
+
+var SF=["","K","M","B","T","Qa","Qi","Sx","Sp","Oc","No","Dc","UDc","DDc","TDc","QaDc","QiDc","SxDc","SpDc","OcDc","NoDc","Vg"];
+function fmt(n){
+  if(n<0)return"-"+fmt(-n);
+  if(n<1000)return"$"+Math.floor(n).toLocaleString();
+  var t=0,s=n;
+  while(s>=1000&&t<SF.length-1){s/=1000;t++;}
+  return"$"+(s<10?s.toFixed(2):s<100?s.toFixed(1):s.toFixed(0))+SF[t];
+}
+function fmtN(n){
+  if(n<1000)return Math.floor(n).toLocaleString();
+  var t=0,s=n;
+  while(s>=1000&&t<SF.length-1){s/=1000;t++;}
+  return(s<10?s.toFixed(2):s<100?s.toFixed(1):s.toFixed(0))+SF[t];
 }
 
-function saveGame(){
-  try{ localStorage.setItem("aiStartupTycoon", JSON.stringify(state)); }catch(e){}
-}
-
-function loadGame(){
-  try{
-    var raw = localStorage.getItem("aiStartupTycoon");
-    if(!raw) return;
-    var saved = JSON.parse(raw);
-    state.money = saved.money || 0;
-    state.lifetimeMoney = saved.lifetimeMoney || 0;
-    state.won = saved.won || false;
-    var sb = saved.businesses || [];
-    for(var i = 0; i < sb.length; i++){
-      var bs = getBizState(sb[i].id);
-      if(bs){
-        bs.level = sb[i].level || 0;
-        bs.hasManager = sb[i].hasManager || false;
-        bs.progress = 0;
-        bs.running = bs.hasManager && bs.level > 0;
-      }
+function save(){try{localStorage.setItem("aiTycoon2",JSON.stringify(st))}catch(e){}}
+function load(){
+  try{var r=localStorage.getItem("aiTycoon2");if(!r)return false;var s=JSON.parse(r);
+    for(var k in defaults()){if(!(k in s))s[k]=defaults()[k];}
+    st=s;
+    for(var i=0;i<st.biz.length;i++){
+      if(!("speedMult" in st.biz[i]))st.biz[i].speedMult=1;
+      if(!("profitMult" in st.biz[i]))st.biz[i].profitMult=1;
     }
-  }catch(e){ state = getDefaultState(); }
+    return true;
+  }catch(e){return false;}
 }
 
-var gameArea = document.getElementById("gameArea");
-var totalMoneyEl = document.getElementById("totalMoney");
-var perSecEl = document.getElementById("perSec");
-var lifetimeEl = document.getElementById("lifetime");
+var $=document.getElementById.bind(document);
+var cards={};
+var curTab="businesses";
 
-var cards = {};
+function switchTab(t){
+  curTab=t;
+  document.querySelectorAll(".tab-btn").forEach(function(b){b.classList.toggle("active",b.dataset.tab===t)});
+  document.querySelectorAll(".panel").forEach(function(p){p.classList.remove("active")});
+  if(t==="businesses")$("panelBusinesses").classList.add("active");
+  else if(t==="upgrades"){$("panelUpgrades").classList.add("active");buildUpgrades();}
+  else{$("panelPrestige").classList.add("active");buildPrestige();}
+}
 
-function buildUI(){
-  gameArea.innerHTML = "";
-  for(var i = 0; i < BUSINESSES.length; i++){
-    var b = BUSINESSES[i];
-    var bs = getBizState(b.id);
-    var card = document.createElement("div");
-    card.className = "business-card" + (bs.level === 0 ? " locked" : "");
-    card.setAttribute("data-id", b.id);
+function buildBiz(){
+  var area=$("panelBusinesses");area.innerHTML="";
+  var qtyDiv=document.createElement("div");
+  qtyDiv.style.cssText="text-align:right;margin-bottom:10px";
+  qtyDiv.innerHTML='<span style="font-size:.7rem;color:var(--text-dim);margin-right:6px">BUY:</span>';
+  [1,10,100].forEach(function(q){
+    var b=document.createElement("button");
+    b.textContent="x"+q;b.className="buy-qty"+(st.buyQty===q?" active":"");
+    b.style.cssText="background:var(--surface2);border:1px solid var(--border);color:"+(st.buyQty===q?"var(--cyan)":"var(--text-dim)")+";font-size:.7rem;padding:4px 10px;border-radius:6px;cursor:pointer;font-family:'Inter',sans-serif;font-weight:600;margin-left:4px";
+    b.addEventListener("click",function(){st.buyQty=q;buildBiz();});
+    qtyDiv.appendChild(b);
+  });
+  area.appendChild(qtyDiv);
 
-    var lockHtml = bs.level === 0
-      ? '<div class="lock-badge">\u{1F512} Unlock for ' + formatMoney(b.baseCost) + '</div>'
-      : '';
-
-    var runBtnHtml = '';
-    if(b.id === "codebot"){
-      runBtnHtml = '<button class="btn btn-run" data-run>\u26A1 Collect</button>';
-    } else if(!bs.hasManager){
-      runBtnHtml = '<button class="btn btn-run" data-run>\u25B6 Run</button>';
-    }
-
-    card.innerHTML =
-      '<div class="biz-top">' +
-        '<div class="biz-icon">' + b.emoji + '</div>' +
-        '<div class="biz-info">' +
-          '<div class="biz-name">' + b.name + '</div>' +
-          '<div class="biz-detail" data-detail>Lvl <span data-level>' + bs.level + '</span> &middot; <span data-income>' + formatMoney(getIncome(b, bs.level)) + '</span>/cycle</div>' +
-        '</div>' +
-        '<div class="biz-level" data-levelBadge>Lv ' + bs.level + '</div>' +
-      '</div>' +
-      '<div class="progress-wrap"><div class="progress-bar ' + (bs.running ? "running" : "idle") + '" data-progress></div></div>' +
-      lockHtml +
-      '<div class="biz-actions">' +
-        runBtnHtml +
-        '<button class="btn btn-buy" data-buy>\u2B06 ' + (bs.level === 0 ? 'Unlock' : 'Upgrade') + ' <span class="cost" data-buyCost>' + formatMoney(getCost(b, bs.level)) + '</span></button>' +
-        '<button class="btn btn-manager ' + (bs.hasManager ? "owned" : "") + '" data-manager ' + (bs.hasManager ? "disabled" : "") + '>' +
-          (bs.hasManager ? '\u2705 Manager' : '\u{1F454} Manager <span class="cost" data-managerCost>' + formatMoney(b.managerCost) + '</span>') +
-        '</button>' +
+  for(var i=0;i<BIZ.length;i++){
+    var b=BIZ[i],s=bs(b.id);
+    var card=document.createElement("div");
+    card.className="business-card"+(s.level===0?" locked":"");
+    card.setAttribute("data-id",b.id);
+    var qty=st.buyQty;
+    var cost=bulkCost(b,s.level,qty);
+    var nm=nextMilestone(s.level);
+    card.innerHTML=
+      '<div class="biz-top">'+
+        '<div class="biz-icon">'+b.emoji+'</div>'+
+        '<div class="biz-info">'+
+          '<div class="biz-name">'+b.name+'</div>'+
+          '<div class="biz-detail">Lvl <span data-level>'+s.level+'</span> &middot; <span data-income>'+fmt(income(b,s))+'</span>/cycle &middot; '+((cycleTime(b,s)/1000).toFixed(1))+'s</div>'+
+          (nm?'<div class="milestone-next">\u{1F3AF} Next milestone: '+nm+' (x'+MILESTONE_MULT+')</div>':'')+
+        '</div>'+
+        '<div class="biz-level">Lv '+s.level+'</div>'+
+      '</div>'+
+      '<div class="progress-wrap"><div class="progress-bar '+(s.running?"running":"idle")+'" data-progress></div></div>'+
+      (s.level===0?'<div class="lock-badge">\u{1F512} Unlock for '+fmt(b.baseCost)+'</div>':'')+
+      '<div class="biz-actions">'+
+        (b.id==="codebot"?'<button class="btn btn-run" data-run>\u26A1 Collect</button>':(!s.hasManager?'<button class="btn btn-run" data-run>\u25B6 Run</button>':''))+
+        '<button class="btn btn-buy" data-buy>\u2B06 '+(s.level===0?'Unlock':'Buy x'+qty)+' <span class="cost">'+fmt(cost)+'</span></button>'+
+        '<button class="btn btn-manager'+(s.hasManager?' owned':'')+'" data-manager'+(s.hasManager?' disabled':'')+'>'+
+          (s.hasManager?'\u2705 Mgr':'\u{1F454} Mgr <span class="cost">'+fmt(b.managerCost)+'</span>')+
+        '</button>'+
       '</div>';
-
-    gameArea.appendChild(card);
-
-    var runBtn = card.querySelector("[data-run]");
-    var buyBtn = card.querySelector("[data-buy]");
-    var managerBtn = card.querySelector("[data-manager]");
-
-    if(runBtn) runBtn.addEventListener("click", (function(bid){ return function(e){ startBusiness(bid, e); }; })(b.id));
-    buyBtn.addEventListener("click", (function(bid){ return function(){ buyUpgrade(bid); }; })(b.id));
-    if(managerBtn && !bs.hasManager) managerBtn.addEventListener("click", (function(bid){ return function(){ buyManager(bid); }; })(b.id));
-
-    cards[b.id] = {
-      card: card,
-      progressBar: card.querySelector("[data-progress]"),
-      levelSpan: card.querySelector("[data-level]"),
-      incomeSpan: card.querySelector("[data-income]"),
-      levelBadge: card.querySelector("[data-levelBadge]"),
-      buyCostSpan: card.querySelector("[data-buyCost]"),
-      lockBadge: card.querySelector(".lock-badge"),
-      runBtn: runBtn,
-      buyBtn: buyBtn,
-      managerBtn: managerBtn,
-      managerCostSpan: card.querySelector("[data-managerCost]")
-    };
+    area.appendChild(card);
+    var runBtn=card.querySelector("[data-run]"),buyBtn=card.querySelector("[data-buy]"),mgrBtn=card.querySelector("[data-manager]");
+    if(runBtn)runBtn.addEventListener("click",(function(id){return function(e){startBiz(id,e)};})(b.id));
+    buyBtn.addEventListener("click",(function(id){return function(){buyBiz(id)};})(b.id));
+    if(mgrBtn&&!s.hasManager)mgrBtn.addEventListener("click",(function(id){return function(){buyMgr(id)};})(b.id));
+    cards[b.id]={card:card,bar:card.querySelector("[data-progress]")};
   }
 }
 
-function startBusiness(id, event){
-  var bs = getBizState(id);
-  var def = getBizDef(id);
-  if(bs.level <= 0 || bs.running) return;
-  bs.running = true;
-  bs.progress = 0;
-  var c = cards[id];
-  if(c.progressBar) c.progressBar.className = "progress-bar running";
-  if(id === "codebot" && event){
-    spawnFloatText(event.clientX, event.clientY, "+" + formatMoney(getIncome(def, bs.level)));
-  }
-}
-
-function collectIncome(id){
-  var bs = getBizState(id);
-  var def = getBizDef(id);
-  var inc = getIncome(def, bs.level);
-  state.money += inc;
-  state.lifetimeMoney += inc;
-  bs.running = false;
-  bs.progress = 0;
-  if(bs.hasManager) bs.running = true;
-}
-
-function buyUpgrade(id){
-  var bs = getBizState(id);
-  var def = getBizDef(id);
-  var cost = getCost(def, bs.level);
-  if(state.money < cost) return;
-  state.money -= cost;
-  bs.level++;
-
-  if(bs.level === 1 && bs.hasManager) bs.running = true;
-
-  refreshCard(id);
-  showToast(def.emoji + " " + def.name + " " + (bs.level === 1 ? "unlocked!" : "upgraded to Lv " + bs.level + "!"));
-  saveGame();
-}
-
-function buyManager(id){
-  var bs = getBizState(id);
-  var def = getBizDef(id);
-  if(state.money < def.managerCost || bs.hasManager) return;
-  state.money -= def.managerCost;
-  bs.hasManager = true;
-  if(bs.level > 0) bs.running = true;
-  refreshCard(id);
-  showToast("\u{1F454} Manager hired for " + def.name + "!");
-  saveGame();
-}
-
-function refreshCard(id){
-  var bs = getBizState(id);
-  var def = getBizDef(id);
-  var c = cards[id];
-  if(!c) return;
-
-  if(bs.level > 0){
-    c.card.classList.remove("locked");
-    if(c.lockBadge){ c.lockBadge.remove(); c.lockBadge = null; }
-    if(c.buyBtn) c.buyBtn.innerHTML = "\u2B06 Upgrade <span class='cost' data-buyCost>" + formatMoney(getCost(def, bs.level)) + "</span>";
-  }
-
-  if(c.levelSpan) c.levelSpan.textContent = bs.level;
-  if(c.incomeSpan) c.incomeSpan.textContent = formatMoney(getIncome(def, bs.level));
-  if(c.levelBadge) c.levelBadge.textContent = "Lv " + bs.level;
-  c.buyCostSpan = c.buyBtn.querySelector("[data-buyCost]");
-  if(c.buyCostSpan) c.buyCostSpan.textContent = formatMoney(getCost(def, bs.level));
-
-  if(bs.hasManager && c.managerBtn){
-    c.managerBtn.classList.add("owned");
-    c.managerBtn.disabled = true;
-    c.managerBtn.innerHTML = "\u2705 Manager";
-  }
-}
-
-function updateButtons(){
-  for(var i = 0; i < BUSINESSES.length; i++){
-    var b = BUSINESSES[i];
-    var bs = getBizState(b.id);
-    var c = cards[b.id];
-    if(!c) continue;
-    var cost = getCost(b, bs.level);
-    if(c.buyBtn) c.buyBtn.disabled = state.money < cost;
-    if(c.runBtn){
-      c.runBtn.disabled = bs.level <= 0 || (bs.running && b.id !== "codebot");
-      if(b.id === "codebot") c.runBtn.disabled = bs.level <= 0;
+function buildUpgrades(){
+  var area=$("panelUpgrades");area.innerHTML="<h2 style='font-size:1.2rem;font-weight:800;margin-bottom:14px;color:var(--text)'>\u2B06 Cash Upgrades</h2>";
+  var avail=0;
+  UPGRADES.forEach(function(u){
+    var owned=st.purchasedUpgrades.indexOf(u.id)>=0;
+    var canBuy=!owned&&st.money>=u.cost;
+    if(!owned)avail++;
+    var d=document.createElement("div");
+    d.className="upgrade-card"+(owned?" purchased":"");
+    d.innerHTML=
+      '<div class="upgrade-info"><div class="upgrade-name">'+(u.type==="speed"?"\u23F1 ":"\u{1F4B0} ")+u.desc+'</div>'+
+      '<div class="upgrade-desc">'+(u.target==="all"?"All businesses":bd(u.target).name)+(u.type==="speed"?" speed x"+(1/u.mult):" profit x"+u.mult)+'</div></div>'+
+      '<div class="upgrade-cost">'+(owned?"\u2705":fmt(u.cost))+'</div>';
+    if(!owned){
+      d.style.cursor="pointer";
+      d.style.borderColor=canBuy?"rgba(6,214,160,.4)":"";
+      d.addEventListener("click",function(){buyUpgrade(u.id)});
     }
-    if(c.managerBtn && !bs.hasManager){
-      c.managerBtn.disabled = state.money < b.managerCost || bs.level === 0;
+    area.appendChild(d);
+  });
+  $("upgBadge").textContent=avail;
+}
+
+function buildPrestige(){
+  var area=$("panelPrestige");
+  var pending=pendingCores();
+  area.innerHTML=
+    '<div class="prestige-panel">'+
+      '<h2>\u{1F9E0} Neural Cores</h2>'+
+      '<div class="sub">Reset your businesses to earn Neural Cores. Each core permanently boosts ALL profits by '+(st.coreBonus*100).toFixed(0)+'%. Cores persist forever and compound with every reset.</div>'+
+      '<div class="prestige-info">'+
+        '<div class="prestige-stat"><div class="label">Current Cores</div><div class="val">'+fmtN(st.cores)+'</div></div>'+
+        '<div class="prestige-stat"><div class="label">Bonus</div><div class="val">+'+(st.cores*st.coreBonus*100).toFixed(0)+'%</div></div>'+
+        '<div class="prestige-stat"><div class="label">Cores on Reset</div><div class="val" style="color:'+(pending>0?'var(--pink)':'var(--text-dim)')+'">+'+fmtN(pending)+'</div></div>'+
+        '<div class="prestige-stat"><div class="label">Total Lifetime $</div><div class="val" style="font-size:1rem">'+fmt(st.totalLifetime)+'</div></div>'+
+      '</div>'+
+      '<button class="btn btn-prestige" id="btnPrestige"'+(pending<1?' disabled':'')+'>'+
+        '\u{1F504} Reset & Claim '+fmtN(pending)+' Neural Cores'+
+      '</button>'+
+      '<div class="core-upgrades"><h3>\u{1F52E} Core Upgrades (spend cores)</h3></div>'+
+    '</div>';
+  $("btnPrestige").addEventListener("click",function(){doPrestige()});
+  var cuArea=area.querySelector(".core-upgrades");
+  CORE_UPGRADES.forEach(function(cu){
+    var owned=st.purchasedCoreUpgrades.indexOf(cu.id)>=0;
+    var d=document.createElement("div");
+    d.className="upgrade-card"+(owned?" purchased":"");
+    d.innerHTML=
+      '<div class="upgrade-info"><div class="upgrade-name">\u{1F52E} '+cu.desc+'</div>'+
+      '<div class="upgrade-desc">Costs '+cu.cost+' Neural Cores</div></div>'+
+      '<div class="upgrade-cost" style="color:var(--pink)">'+(owned?"\u2705":cu.cost+" \u{1F9E0}")+'</div>';
+    if(!owned){
+      d.style.cursor="pointer";
+      d.style.borderColor=st.cores>=cu.cost?"rgba(236,72,153,.4)":"";
+      d.addEventListener("click",function(){buyCoreUpgrade(cu.id)});
     }
-  }
-}
-
-function spawnFloatText(x, y, text){
-  var el = document.createElement("div");
-  el.className = "float-text";
-  el.textContent = text;
-  el.style.left = x + "px";
-  el.style.top = y + "px";
-  document.body.appendChild(el);
-  setTimeout(function(){ el.remove(); }, 900);
-}
-
-var toastTimeout;
-function showToast(msg){
-  var t = document.querySelector(".toast");
-  if(t) t.remove();
-  t = document.createElement("div");
-  t.className = "toast";
-  t.textContent = msg;
-  document.body.appendChild(t);
-  clearTimeout(toastTimeout);
-  toastTimeout = setTimeout(function(){ t.remove(); }, 2000);
-}
-
-function checkWin(){
-  if(!state.won && state.lifetimeMoney >= WIN_AMOUNT){
-    state.won = true;
-    saveGame();
-    showWinScreen();
-  }
-}
-
-function showWinScreen(){
-  var overlay = document.createElement("div");
-  overlay.className = "win-overlay";
-  overlay.innerHTML =
-    '<h2>\u{1F389} You Did It!</h2>' +
-    '<p>Your AI empire earned ' + formatMoney(state.lifetimeMoney) + ' in total revenue.<br>You\'ve achieved Artificial General Intelligence!</p>' +
-    '<button class="btn btn-buy" id="keepBtn" style="font-size:1rem;padding:12px 28px">Keep Playing</button>' +
-    '<br><br>' +
-    '<button class="btn btn-manager" id="resetBtn" style="font-size:.85rem;padding:10px 20px">\u{1F504} Reset &amp; Play Again</button>';
-  document.body.appendChild(overlay);
-  document.getElementById("keepBtn").addEventListener("click", function(){ overlay.remove(); });
-  document.getElementById("resetBtn").addEventListener("click", function(){
-    localStorage.removeItem("aiStartupTycoon");
-    location.reload();
+    cuArea.appendChild(d);
   });
 }
 
-var lastTick = performance.now();
+function startBiz(id,e){var s=bs(id);if(s.level<=0||s.running)return;s.running=true;s.progress=0;
+  if(id==="codebot"&&e){var def=bd(id);var inc=income(def,s);st.money+=inc;st.lifetime+=inc;st.totalLifetime+=inc;spawnFloat(e.clientX,e.clientY,"+"+fmt(inc));}
+}
+function collectIncome(id){var s=bs(id),d=bd(id),inc=income(d,s);st.money+=inc;st.lifetime+=inc;st.totalLifetime+=inc;s.running=false;s.progress=0;if(s.hasManager)s.running=true;}
 
-function gameTick(now){
-  var dt = now - lastTick;
-  lastTick = now;
-
-  for(var i = 0; i < BUSINESSES.length; i++){
-    var b = BUSINESSES[i];
-    var bs = getBizState(b.id);
-    var c = cards[b.id];
-    if(!c) continue;
-
-    if(bs.level > 0 && bs.running){
-      var cycleTime = getCycleTime(b, bs.level);
-      bs.progress += dt;
-
-      if(bs.progress >= cycleTime){
-        collectIncome(b.id);
-        bs.progress = bs.hasManager ? bs.progress - cycleTime : 0;
-        if(!bs.hasManager){
-          bs.running = false;
-          c.progressBar.className = "progress-bar idle";
-          c.progressBar.style.width = "0%";
-        }
-      }
-
-      if(bs.running){
-        var pct = Math.min((bs.progress / cycleTime) * 100, 100);
-        c.progressBar.style.width = pct + "%";
-        c.progressBar.className = "progress-bar running";
-      }
-    }
+function buyBiz(id){
+  var s=bs(id),d=bd(id),qty=st.buyQty,cost=bulkCost(d,s.level,qty);
+  if(st.money<cost)return;
+  st.money-=cost;s.level+=qty;
+  if(s.level>0&&s.hasManager&&!s.running)s.running=true;
+  buildBiz();showToast(d.emoji+" "+d.name+(qty>1?" x"+qty:"")+" "+(s.level<=qty?"unlocked!":"upgraded to Lv "+s.level));save();
+}
+function buyMgr(id){
+  var s=bs(id),d=bd(id);
+  if(st.money<d.managerCost||s.hasManager)return;
+  st.money-=d.managerCost;s.hasManager=true;if(s.level>0)s.running=true;
+  buildBiz();showToast("\u{1F454} Manager hired for "+d.name);save();
+}
+function buyUpgrade(uid){
+  var u=UPGRADES.find(function(x){return x.id===uid});
+  if(!u||st.purchasedUpgrades.indexOf(uid)>=0||st.money<u.cost)return;
+  st.money-=u.cost;st.purchasedUpgrades.push(uid);
+  if(u.target==="all"){
+    st.biz.forEach(function(b){if(u.type==="speed")b.speedMult*=u.mult;else b.profitMult*=u.mult;});
+  }else{
+    var b=bs(u.target);if(u.type==="speed")b.speedMult*=u.mult;else b.profitMult*=u.mult;
   }
-
-  totalMoneyEl.textContent = formatMoney(state.money);
-  perSecEl.textContent = formatMoney(getTotalPerSec()) + "/s";
-  lifetimeEl.textContent = formatMoney(state.lifetimeMoney);
-
-  updateButtons();
-  checkWin();
-  requestAnimationFrame(gameTick);
+  buildUpgrades();showToast("\u2B06 "+u.desc);save();
+}
+function buyCoreUpgrade(cid){
+  var cu=CORE_UPGRADES.find(function(x){return x.id===cid});
+  if(!cu||st.purchasedCoreUpgrades.indexOf(cid)>=0||st.cores<cu.cost)return;
+  st.cores-=cu.cost;st.coresSacrificed+=cu.cost;st.purchasedCoreUpgrades.push(cid);
+  if(cu.mult)st.coreMult*=cu.mult;
+  if(cu.coreBoost)st.coreBonus+=cu.coreBoost;
+  buildPrestige();showToast("\u{1F52E} "+cu.desc);save();
+}
+function doPrestige(){
+  var p=pendingCores();if(p<1)return;
+  st.cores+=p;st.money=0;st.lifetime=0;
+  st.purchasedUpgrades=[];
+  st.biz=BIZ.map(function(b){return{id:b.id,level:b.id==="codebot"?1:0,hasManager:false,progress:0,running:false,speedMult:1,profitMult:1}});
+  buildBiz();buildPrestige();
+  showToast("\u{1F9E0} Earned "+fmtN(p)+" Neural Cores! All profits boosted!");save();
 }
 
-function init(){
-  loadGame();
-  buildUI();
-  updateButtons();
+function spawnFloat(x,y,t){var e=document.createElement("div");e.className="float-text";e.textContent=t;e.style.left=x+"px";e.style.top=y+"px";document.body.appendChild(e);setTimeout(function(){e.remove()},900)}
+var toastTO;
+function showToast(m){var t=document.querySelector(".toast");if(t)t.remove();t=document.createElement("div");t.className="toast";t.textContent=m;document.body.appendChild(t);clearTimeout(toastTO);toastTO=setTimeout(function(){t.remove()},2200)}
 
-  for(var i = 0; i < BUSINESSES.length; i++){
-    var bs = getBizState(BUSINESSES[i].id);
-    if(bs.hasManager && bs.level > 0){ bs.running = true; bs.progress = 0; }
-    refreshCard(BUSINESSES[i].id);
+function updateUI(){
+  $("sMoney").textContent=fmt(st.money);
+  $("sPerSec").textContent=fmt(perSec())+"/s";
+  $("sLifetime").textContent=fmt(st.totalLifetime);
+  $("sCores").textContent=fmtN(st.cores)+(st.cores>0?" (+"+(st.cores*st.coreBonus*100).toFixed(0)+"%)":"");
+
+  for(var i=0;i<BIZ.length;i++){
+    var b=BIZ[i],s=bs(b.id),c=cards[b.id];
+    if(!c)continue;
+    var buyBtn=c.card.querySelector("[data-buy]");
+    if(buyBtn)buyBtn.disabled=st.money<bulkCost(b,s.level,st.buyQty);
+    var runBtn=c.card.querySelector("[data-run]");
+    if(runBtn){runBtn.disabled=s.level<=0||(s.running&&b.id!=="codebot");if(b.id==="codebot")runBtn.disabled=s.level<=0;}
+    var mgrBtn=c.card.querySelector("[data-manager]");
+    if(mgrBtn&&!s.hasManager)mgrBtn.disabled=st.money<b.managerCost||s.level===0;
   }
-
-  lastTick = performance.now();
-  requestAnimationFrame(gameTick);
-  setInterval(saveGame, 5000);
-  if(state.won) showWinScreen();
+  var avail=UPGRADES.filter(function(u){return st.purchasedUpgrades.indexOf(u.id)<0}).length;
+  $("upgBadge").textContent=avail;
 }
 
-document.addEventListener("click", function(e){
-  var runBtn = e.target.closest("[data-run]");
-  if(!runBtn) return;
-  var card = runBtn.closest(".business-card");
-  if(!card) return;
-  var id = card.getAttribute("data-id");
-  if(id === "codebot"){
-    var bs = getBizState("codebot");
-    var def = getBizDef("codebot");
-    if(bs.level > 0){
-      if(!bs.running){ bs.running = true; bs.progress = 0; }
-      var inc = getIncome(def, bs.level);
-      state.money += inc;
-      state.lifetimeMoney += inc;
-      spawnFloatText(e.clientX, e.clientY, "+" + formatMoney(inc));
+var last=performance.now();
+function tick(now){
+  var dt=now-last;last=now;
+  for(var i=0;i<BIZ.length;i++){
+    var b=BIZ[i],s=bs(b.id),c=cards[b.id];
+    if(!c)continue;
+    if(s.level>0&&s.running){
+      var ct=cycleTime(b,s);s.progress+=dt;
+      if(s.progress>=ct){collectIncome(b.id);s.progress=s.hasManager?s.progress-ct:0;
+        if(!s.hasManager){s.running=false;c.bar.className="progress-bar idle";c.bar.style.width="0%";}}
+      if(s.running){c.bar.style.width=Math.min(s.progress/ct*100,100)+"%";c.bar.className="progress-bar running";}
     }
   }
+  updateUI();
+  requestAnimationFrame(tick);
+}
+
+function offlineEarnings(){
+  var elapsed=(Date.now()-st.lastTick)/1000;
+  if(elapsed<5)return;
+  var ps=perSec();
+  if(ps<=0)return;
+  var earned=ps*elapsed*0.5;
+  st.money+=earned;st.lifetime+=earned;st.totalLifetime+=earned;
+  showToast("Welcome back! Earned "+fmt(earned)+" while away ("+Math.floor(elapsed/60)+"m)");
+}
+
+document.querySelectorAll(".tab-btn").forEach(function(b){b.addEventListener("click",function(){switchTab(b.dataset.tab)})});
+
+document.addEventListener("click",function(e){
+  var r=e.target.closest("[data-run]");if(!r)return;
+  var c=r.closest(".business-card");if(!c)return;
+  var id=c.getAttribute("data-id");
+  if(id==="codebot"){var s=bs("codebot"),d=bd("codebot");
+    if(s.level>0){if(!s.running){s.running=true;s.progress=0;}
+      var inc=income(d,s);st.money+=inc;st.lifetime+=inc;st.totalLifetime+=inc;spawnFloat(e.clientX,e.clientY,"+"+fmt(inc));}}
 });
 
-init();
+st=defaults();
+if(load()){offlineEarnings();}
+st.lastTick=Date.now();
+buildBiz();updateUI();
+for(var i=0;i<BIZ.length;i++){var s=bs(BIZ[i].id);if(s.hasManager&&s.level>0){s.running=true;s.progress=0;}}
+last=performance.now();
+requestAnimationFrame(tick);
+setInterval(function(){st.lastTick=Date.now();save();},5000);
 
 })();
 </script>
