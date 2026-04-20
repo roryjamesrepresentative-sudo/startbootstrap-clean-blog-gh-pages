@@ -59,6 +59,8 @@ main{max-width:720px;margin:0 auto;padding:20px 16px 80px}
   background:rgba(10,14,23,.6);z-index:5;pointer-events:none;
   font-size:.85rem;color:var(--text-dim);flex-direction:column;gap:4px;
 }
+/* Children can still steal clicks unless explicitly non-interactive (fixes Unlock not working). */
+.business-card.locked .lock-overlay *{pointer-events:none}
 .business-card.locked .lock-overlay .unlock-cost{color:var(--amber);font-weight:700;font-family:'JetBrains Mono',monospace}
 
 .biz-top{display:flex;align-items:center;gap:14px;margin-bottom:12px}
@@ -85,7 +87,7 @@ main{max-width:720px;margin:0 auto;padding:20px 16px 80px}
 .progress-bar.running{background:linear-gradient(90deg,var(--cyan),var(--purple))}
 .progress-bar.idle{background:var(--text-dim);width:0%}
 
-.biz-actions{display:flex;gap:8px;flex-wrap:wrap}
+.biz-actions{display:flex;gap:8px;flex-wrap:wrap;position:relative;z-index:10}
 .btn{
   border:none;border-radius:10px;padding:9px 16px;font-size:.78rem;
   font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;

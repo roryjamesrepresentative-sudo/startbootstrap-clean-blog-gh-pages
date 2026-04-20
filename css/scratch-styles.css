@@ -215,9 +215,12 @@ a:hover {
     min-height: 820px;
 }
 
-.tableau-container tableau-viz {
+.tableau-container iframe {
     width: 100%;
+    height: 820px;
     min-height: 820px;
+    border: none;
+    display: block;
 }
 
 /* ---------- Card Grid ---------- */
@@ -330,7 +333,11 @@ a:hover {
     }
 
     .tableau-container,
-    .tableau-container tableau-viz {
+    .tableau-container iframe {
         min-height: 620px;
+    }
+
+    .tableau-container iframe {
+        height: 620px;
     }
 }

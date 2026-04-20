@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Coding &amp; Agent Development | Rory</title>
-    <link rel="stylesheet" href="css/scratch-styles.css">
-    <script type="module" src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js"></script>
+    <link rel="stylesheet" href="css/scratch-styles.css?v=5">
 </head>
 <body id="page-top">
 
@@ -108,16 +107,16 @@
         </div>
     </div>
 
-    <!-- Tableau Data Section -->
+    <!-- Tableau Data Section (iframe embed works reliably on GitHub Pages; viz by Chimdi Nwosu, Makeover Monday) -->
     <div id="data-section" class="content-section">
-        <h2>Social Media &amp; Technology Trends</h2>
-        <p>This interactive Tableau visualization explores social media usage patterns across platforms. Hover over the chart elements and use the filters to explore the data yourself.</p>
+        <h2>The Rise of Large Language Models</h2>
+        <p>Interactive Tableau dashboard (embedded below). Use the toolbar and filters inside the viz to explore.</p>
         <div class="tableau-container">
-            <tableau-viz id="tableauViz"
-                src="https://public.tableau.com/views/MakeoverMonday2024Wk28-TheRiseofLLMs/LLMs?:showVizHome=no"
-                toolbar="bottom"
-                hide-tabs>
-            </tableau-viz>
+            <iframe
+                title="Tableau: The Rise of LLMs"
+                src="https://public.tableau.com/views/MakeoverMonday2024Wk28-TheRiseofLLMs/LLMs?:showVizHome=no&amp;:embed=y&amp;:language=en-US&amp;:display_count=n&amp;:origin=viz_share_link"
+                allowfullscreen>
+            </iframe>
         </div>
     </div>
 
