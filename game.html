@@ -21,9 +21,16 @@ a{color:var(--cyan);text-decoration:none}
 a:hover{text-decoration:underline}
 
 .top-nav{
-  padding:8px 24px;background:rgba(6,214,160,.06);border-bottom:1px solid var(--border);
-  font-size:.8rem;
+  padding:14px 24px;background:rgba(6,214,160,.08);border-bottom:1px solid var(--border);
+  font-size:1.1rem;font-weight:700;
 }
+.top-nav a{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 24px;border-radius:10px;
+  background:rgba(6,214,160,.12);color:var(--cyan);
+  transition:background .2s;
+}
+.top-nav a:hover{background:rgba(6,214,160,.22);text-decoration:none}
 
 header{
   text-align:center;padding:28px 20px 18px;
@@ -53,15 +60,13 @@ main{max-width:720px;margin:0 auto;padding:20px 16px 80px}
   transition:border-color .2s,box-shadow .2s;position:relative;overflow:hidden;
 }
 .business-card:hover{border-color:rgba(6,214,160,.3);box-shadow:0 0 20px rgba(6,214,160,.05)}
-.business-card.locked{opacity:.45;filter:grayscale(.5)}
-.business-card.locked .lock-overlay{
-  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-  background:rgba(10,14,23,.6);z-index:5;pointer-events:none;
-  font-size:.85rem;color:var(--text-dim);flex-direction:column;gap:4px;
+.business-card.locked .biz-top{opacity:.4;filter:grayscale(.5)}
+.business-card.locked .progress-wrap{opacity:.3}
+.lock-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:.8rem;color:var(--amber);font-weight:700;font-family:'JetBrains Mono',monospace;
+  background:rgba(245,158,11,.1);padding:4px 12px;border-radius:8px;margin-bottom:8px;
 }
-/* Children can still steal clicks unless explicitly non-interactive (fixes Unlock not working). */
-.business-card.locked .lock-overlay *{pointer-events:none}
-.business-card.locked .lock-overlay .unlock-cost{color:var(--amber);font-weight:700;font-family:'JetBrains Mono',monospace}
 
 .biz-top{display:flex;align-items:center;gap:14px;margin-bottom:12px}
 .biz-icon{
@@ -87,7 +92,7 @@ main{max-width:720px;margin:0 auto;padding:20px 16px 80px}
 .progress-bar.running{background:linear-gradient(90deg,var(--cyan),var(--purple))}
 .progress-bar.idle{background:var(--text-dim);width:0%}
 
-.biz-actions{display:flex;gap:8px;flex-wrap:wrap;position:relative;z-index:10}
+.biz-actions{display:flex;gap:8px;flex-wrap:wrap}
 .btn{
   border:none;border-radius:10px;padding:9px 16px;font-size:.78rem;
   font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;
@@ -160,7 +165,7 @@ footer{
 <nav class="top-nav"><a href="fromscratch.html">&larr; Back to Scratch Page</a></nav>
 
 <header>
-  <h1><span>🤖</span> AI Startup Tycoon</h1>
+  <h1><span>&#x1F916;</span> AI Startup Tycoon</h1>
   <div class="stats">
     <div class="stat">
       <div class="stat-label">Funding</div>
@@ -185,39 +190,34 @@ footer{
 (function(){
 "use strict";
 
-const BUSINESSES = [
-  {id:"codebot",    name:"Code Bot",          emoji:"🤖", baseCost:10,      baseIncome:1,     baseTime:1000, managerCost:100},
-  {id:"scraper",    name:"Data Scraper",       emoji:"🕷️", baseCost:100,     baseIncome:5,     baseTime:2000, managerCost:1000},
-  {id:"chatbot",    name:"Chat Assistant",     emoji:"💬", baseCost:1000,    baseIncome:25,    baseTime:3000, managerCost:12000},
-  {id:"imagegen",   name:"Image Generator",    emoji:"🎨", baseCost:10000,   baseIncome:100,   baseTime:4500, managerCost:150000},
-  {id:"agent",      name:"AI Agent",           emoji:"🧠", baseCost:100000,  baseIncome:500,   baseTime:6000, managerCost:1500000},
-  {id:"agi",        name:"AGI Research Lab",   emoji:"🔬", baseCost:1000000, baseIncome:5000,  baseTime:8000, managerCost:15000000},
+var BUSINESSES = [
+  {id:"codebot",  name:"Code Bot",        emoji:"\u{1F916}", baseCost:10,      baseIncome:1,    baseTime:1000, managerCost:100},
+  {id:"scraper",  name:"Data Scraper",     emoji:"\u{1F577}\uFE0F", baseCost:100,     baseIncome:5,    baseTime:2000, managerCost:1000},
+  {id:"chatbot",  name:"Chat Assistant",   emoji:"\u{1F4AC}", baseCost:1000,    baseIncome:25,   baseTime:3000, managerCost:12000},
+  {id:"imagegen", name:"Image Generator",  emoji:"\u{1F3A8}", baseCost:10000,   baseIncome:100,  baseTime:4500, managerCost:150000},
+  {id:"agent",    name:"AI Agent",         emoji:"\u{1F9E0}", baseCost:100000,  baseIncome:500,  baseTime:6000, managerCost:1500000},
+  {id:"agi",      name:"AGI Research Lab", emoji:"\u{1F52C}", baseCost:1000000, baseIncome:5000, baseTime:8000, managerCost:15000000}
 ];
 
-const COST_MULT = 1.15;
-const INCOME_MULT = 1.08;
-const SPEED_LEVELS = [25, 50, 100, 150, 200];
-const WIN_AMOUNT = 1e11;
+var COST_MULT = 1.15;
+var SPEED_LEVELS = [25, 50, 100, 150, 200];
+var WIN_AMOUNT = 1e11;
 
-let state = getDefaultState();
+var state = getDefaultState();
 
 function getDefaultState(){
   return {
     money: 0,
     lifetimeMoney: 0,
-    businesses: BUSINESSES.map(b=>({
-      id: b.id,
-      level: b.id === "codebot" ? 1 : 0,
-      hasManager: false,
-      progress: 0,
-      running: false,
-    })),
-    won: false,
+    businesses: BUSINESSES.map(function(b){
+      return { id: b.id, level: b.id === "codebot" ? 1 : 0, hasManager: false, progress: 0, running: false };
+    }),
+    won: false
   };
 }
 
-function getBizState(id){ return state.businesses.find(b=>b.id===id); }
-function getBizDef(id){ return BUSINESSES.find(b=>b.id===id); }
+function getBizState(id){ return state.businesses.find(function(b){return b.id===id;}); }
+function getBizDef(id){ return BUSINESSES.find(function(b){return b.id===id;}); }
 
 function getCost(def, level){
   if(level === 0) return def.baseCost;
@@ -230,22 +230,21 @@ function getIncome(def, level){
 }
 
 function getCycleTime(def, level){
-  let t = def.baseTime;
-  for(const threshold of SPEED_LEVELS){
-    if(level >= threshold) t *= 0.8;
+  var t = def.baseTime;
+  for(var i = 0; i < SPEED_LEVELS.length; i++){
+    if(level >= SPEED_LEVELS[i]) t *= 0.8;
     else break;
   }
   return Math.max(t, 500);
 }
 
 function getTotalPerSec(){
-  let total = 0;
-  for(const b of BUSINESSES){
-    const bs = getBizState(b.id);
+  var total = 0;
+  for(var i = 0; i < BUSINESSES.length; i++){
+    var b = BUSINESSES[i];
+    var bs = getBizState(b.id);
     if(bs.level > 0 && bs.hasManager){
-      const inc = getIncome(b, bs.level);
-      const time = getCycleTime(b, bs.level) / 1000;
-      total += inc / time;
+      total += getIncome(b, bs.level) / (getCycleTime(b, bs.level) / 1000);
     }
   }
   return total;
@@ -254,13 +253,9 @@ function getTotalPerSec(){
 function formatMoney(n){
   if(n < 0) return "-" + formatMoney(-n);
   if(n < 1000) return "$" + Math.floor(n).toLocaleString();
-  const suffixes = ["","K","M","B","T","Qa","Qi","Sx","Sp","Oc"];
-  let tier = 0;
-  let scaled = n;
-  while(scaled >= 1000 && tier < suffixes.length - 1){
-    scaled /= 1000;
-    tier++;
-  }
+  var suffixes = ["","K","M","B","T","Qa","Qi","Sx","Sp","Oc"];
+  var tier = 0, scaled = n;
+  while(scaled >= 1000 && tier < suffixes.length - 1){ scaled /= 1000; tier++; }
   return "$" + scaled.toFixed(scaled < 10 ? 2 : scaled < 100 ? 1 : 0) + suffixes[tier];
 }
 
@@ -270,177 +265,180 @@ function saveGame(){
 
 function loadGame(){
   try{
-    const raw = localStorage.getItem("aiStartupTycoon");
+    var raw = localStorage.getItem("aiStartupTycoon");
     if(!raw) return;
-    const saved = JSON.parse(raw);
+    var saved = JSON.parse(raw);
     state.money = saved.money || 0;
     state.lifetimeMoney = saved.lifetimeMoney || 0;
     state.won = saved.won || false;
-    for(const sb of saved.businesses || []){
-      const bs = getBizState(sb.id);
+    var sb = saved.businesses || [];
+    for(var i = 0; i < sb.length; i++){
+      var bs = getBizState(sb[i].id);
       if(bs){
-        bs.level = sb.level || 0;
-        bs.hasManager = sb.hasManager || false;
+        bs.level = sb[i].level || 0;
+        bs.hasManager = sb[i].hasManager || false;
         bs.progress = 0;
-        bs.running = sb.hasManager && sb.level > 0;
+        bs.running = bs.hasManager && bs.level > 0;
       }
     }
   }catch(e){ state = getDefaultState(); }
 }
 
-const gameArea = document.getElementById("gameArea");
-const totalMoneyEl = document.getElementById("totalMoney");
-const perSecEl = document.getElementById("perSec");
-const lifetimeEl = document.getElementById("lifetime");
+var gameArea = document.getElementById("gameArea");
+var totalMoneyEl = document.getElementById("totalMoney");
+var perSecEl = document.getElementById("perSec");
+var lifetimeEl = document.getElementById("lifetime");
 
-const cards = {};
+var cards = {};
 
 function buildUI(){
   gameArea.innerHTML = "";
-  for(const b of BUSINESSES){
-    const bs = getBizState(b.id);
-    const card = document.createElement("div");
+  for(var i = 0; i < BUSINESSES.length; i++){
+    var b = BUSINESSES[i];
+    var bs = getBizState(b.id);
+    var card = document.createElement("div");
     card.className = "business-card" + (bs.level === 0 ? " locked" : "");
-    card.dataset.id = b.id;
-    card.innerHTML = `
-      ${bs.level === 0 ? `<div class="lock-overlay"><span>🔒 Unlock for</span><span class="unlock-cost">${formatMoney(b.baseCost)}</span></div>` : ""}
-      <div class="biz-top">
-        <div class="biz-icon">${b.emoji}</div>
-        <div class="biz-info">
-          <div class="biz-name">${b.name}</div>
-          <div class="biz-detail" data-detail>Lvl <span data-level>${bs.level}</span> &middot; <span data-income>${formatMoney(getIncome(b, bs.level))}</span>/cycle</div>
-        </div>
-        <div class="biz-level" data-levelBadge>Lv ${bs.level}</div>
-      </div>
-      <div class="progress-wrap"><div class="progress-bar ${bs.running ? 'running' : 'idle'}" data-progress></div></div>
-      <div class="biz-actions">
-        ${b.id === "codebot" ? `<button class="btn btn-run" data-run>⚡ Collect</button>` : ""}
-        ${b.id !== "codebot" && !bs.hasManager ? `<button class="btn btn-run" data-run>▶ Run</button>` : ""}
-        <button class="btn btn-buy" data-buy>⬆ Upgrade <span class="cost" data-buyCost>${formatMoney(getCost(b, bs.level))}</span></button>
-        <button class="btn btn-manager ${bs.hasManager ? 'owned' : ''}" data-manager ${bs.hasManager ? 'disabled' : ''}>
-          ${bs.hasManager ? '✅ Manager' : `👔 Manager <span class="cost" data-managerCost>${formatMoney(b.managerCost)}</span>`}
-        </button>
-      </div>
-    `;
+    card.setAttribute("data-id", b.id);
+
+    var lockHtml = bs.level === 0
+      ? '<div class="lock-badge">\u{1F512} Unlock for ' + formatMoney(b.baseCost) + '</div>'
+      : '';
+
+    var runBtnHtml = '';
+    if(b.id === "codebot"){
+      runBtnHtml = '<button class="btn btn-run" data-run>\u26A1 Collect</button>';
+    } else if(!bs.hasManager){
+      runBtnHtml = '<button class="btn btn-run" data-run>\u25B6 Run</button>';
+    }
+
+    card.innerHTML =
+      '<div class="biz-top">' +
+        '<div class="biz-icon">' + b.emoji + '</div>' +
+        '<div class="biz-info">' +
+          '<div class="biz-name">' + b.name + '</div>' +
+          '<div class="biz-detail" data-detail>Lvl <span data-level>' + bs.level + '</span> &middot; <span data-income>' + formatMoney(getIncome(b, bs.level)) + '</span>/cycle</div>' +
+        '</div>' +
+        '<div class="biz-level" data-levelBadge>Lv ' + bs.level + '</div>' +
+      '</div>' +
+      '<div class="progress-wrap"><div class="progress-bar ' + (bs.running ? "running" : "idle") + '" data-progress></div></div>' +
+      lockHtml +
+      '<div class="biz-actions">' +
+        runBtnHtml +
+        '<button class="btn btn-buy" data-buy>\u2B06 ' + (bs.level === 0 ? 'Unlock' : 'Upgrade') + ' <span class="cost" data-buyCost>' + formatMoney(getCost(b, bs.level)) + '</span></button>' +
+        '<button class="btn btn-manager ' + (bs.hasManager ? "owned" : "") + '" data-manager ' + (bs.hasManager ? "disabled" : "") + '>' +
+          (bs.hasManager ? '\u2705 Manager' : '\u{1F454} Manager <span class="cost" data-managerCost>' + formatMoney(b.managerCost) + '</span>') +
+        '</button>' +
+      '</div>';
 
     gameArea.appendChild(card);
 
-    const runBtn = card.querySelector("[data-run]");
-    const buyBtn = card.querySelector("[data-buy]");
-    const managerBtn = card.querySelector("[data-manager]");
+    var runBtn = card.querySelector("[data-run]");
+    var buyBtn = card.querySelector("[data-buy]");
+    var managerBtn = card.querySelector("[data-manager]");
 
-    if(runBtn) runBtn.addEventListener("click", (e) => startBusiness(b.id, e));
-    buyBtn.addEventListener("click", () => buyUpgrade(b.id));
-    if(managerBtn && !bs.hasManager) managerBtn.addEventListener("click", () => buyManager(b.id));
+    if(runBtn) runBtn.addEventListener("click", (function(bid){ return function(e){ startBusiness(bid, e); }; })(b.id));
+    buyBtn.addEventListener("click", (function(bid){ return function(){ buyUpgrade(bid); }; })(b.id));
+    if(managerBtn && !bs.hasManager) managerBtn.addEventListener("click", (function(bid){ return function(){ buyManager(bid); }; })(b.id));
 
     cards[b.id] = {
-      card,
+      card: card,
       progressBar: card.querySelector("[data-progress]"),
       levelSpan: card.querySelector("[data-level]"),
       incomeSpan: card.querySelector("[data-income]"),
       levelBadge: card.querySelector("[data-levelBadge]"),
       buyCostSpan: card.querySelector("[data-buyCost]"),
-      runBtn,
-      buyBtn,
-      managerBtn,
-      managerCostSpan: card.querySelector("[data-managerCost]"),
+      lockBadge: card.querySelector(".lock-badge"),
+      runBtn: runBtn,
+      buyBtn: buyBtn,
+      managerBtn: managerBtn,
+      managerCostSpan: card.querySelector("[data-managerCost]")
     };
   }
 }
 
 function startBusiness(id, event){
-  const bs = getBizState(id);
-  const def = getBizDef(id);
+  var bs = getBizState(id);
+  var def = getBizDef(id);
   if(bs.level <= 0 || bs.running) return;
   bs.running = true;
   bs.progress = 0;
-  const c = cards[id];
+  var c = cards[id];
   if(c.progressBar) c.progressBar.className = "progress-bar running";
-
   if(id === "codebot" && event){
     spawnFloatText(event.clientX, event.clientY, "+" + formatMoney(getIncome(def, bs.level)));
   }
 }
 
 function collectIncome(id){
-  const bs = getBizState(id);
-  const def = getBizDef(id);
-  const inc = getIncome(def, bs.level);
+  var bs = getBizState(id);
+  var def = getBizDef(id);
+  var inc = getIncome(def, bs.level);
   state.money += inc;
   state.lifetimeMoney += inc;
   bs.running = false;
   bs.progress = 0;
-
-  if(bs.hasManager){
-    bs.running = true;
-  }
+  if(bs.hasManager) bs.running = true;
 }
 
 function buyUpgrade(id){
-  const bs = getBizState(id);
-  const def = getBizDef(id);
-  const cost = getCost(def, bs.level);
+  var bs = getBizState(id);
+  var def = getBizDef(id);
+  var cost = getCost(def, bs.level);
   if(state.money < cost) return;
   state.money -= cost;
   bs.level++;
 
   if(bs.level === 1 && bs.hasManager) bs.running = true;
-  if(bs.level === 1 && id === "codebot" && !bs.running) bs.running = false;
 
   refreshCard(id);
-  showToast(`${def.emoji} ${def.name} upgraded to Lv ${bs.level}!`);
+  showToast(def.emoji + " " + def.name + " " + (bs.level === 1 ? "unlocked!" : "upgraded to Lv " + bs.level + "!"));
   saveGame();
 }
 
 function buyManager(id){
-  const bs = getBizState(id);
-  const def = getBizDef(id);
+  var bs = getBizState(id);
+  var def = getBizDef(id);
   if(state.money < def.managerCost || bs.hasManager) return;
   state.money -= def.managerCost;
   bs.hasManager = true;
-  if(bs.level > 0){
-    bs.running = true;
-  }
+  if(bs.level > 0) bs.running = true;
   refreshCard(id);
-  showToast(`👔 Manager hired for ${def.name}!`);
+  showToast("\u{1F454} Manager hired for " + def.name + "!");
   saveGame();
 }
 
 function refreshCard(id){
-  const bs = getBizState(id);
-  const def = getBizDef(id);
-  const c = cards[id];
+  var bs = getBizState(id);
+  var def = getBizDef(id);
+  var c = cards[id];
   if(!c) return;
 
-  const wasLocked = c.card.classList.contains("locked");
-  const isLocked = bs.level === 0;
-
-  if(wasLocked && !isLocked){
+  if(bs.level > 0){
     c.card.classList.remove("locked");
-    const overlay = c.card.querySelector(".lock-overlay");
-    if(overlay) overlay.remove();
-  } else if(isLocked){
-    c.card.classList.add("locked");
+    if(c.lockBadge){ c.lockBadge.remove(); c.lockBadge = null; }
+    if(c.buyBtn) c.buyBtn.innerHTML = "\u2B06 Upgrade <span class='cost' data-buyCost>" + formatMoney(getCost(def, bs.level)) + "</span>";
   }
 
   if(c.levelSpan) c.levelSpan.textContent = bs.level;
   if(c.incomeSpan) c.incomeSpan.textContent = formatMoney(getIncome(def, bs.level));
   if(c.levelBadge) c.levelBadge.textContent = "Lv " + bs.level;
+  c.buyCostSpan = c.buyBtn.querySelector("[data-buyCost]");
   if(c.buyCostSpan) c.buyCostSpan.textContent = formatMoney(getCost(def, bs.level));
 
   if(bs.hasManager && c.managerBtn){
     c.managerBtn.classList.add("owned");
     c.managerBtn.disabled = true;
-    c.managerBtn.innerHTML = "✅ Manager";
+    c.managerBtn.innerHTML = "\u2705 Manager";
   }
 }
 
 function updateButtons(){
-  for(const b of BUSINESSES){
-    const bs = getBizState(b.id);
-    const c = cards[b.id];
+  for(var i = 0; i < BUSINESSES.length; i++){
+    var b = BUSINESSES[i];
+    var bs = getBizState(b.id);
+    var c = cards[b.id];
     if(!c) continue;
-    const cost = getCost(b, bs.level);
+    var cost = getCost(b, bs.level);
     if(c.buyBtn) c.buyBtn.disabled = state.money < cost;
     if(c.runBtn){
       c.runBtn.disabled = bs.level <= 0 || (bs.running && b.id !== "codebot");
@@ -453,25 +451,25 @@ function updateButtons(){
 }
 
 function spawnFloatText(x, y, text){
-  const el = document.createElement("div");
+  var el = document.createElement("div");
   el.className = "float-text";
   el.textContent = text;
   el.style.left = x + "px";
   el.style.top = y + "px";
   document.body.appendChild(el);
-  setTimeout(()=>el.remove(), 900);
+  setTimeout(function(){ el.remove(); }, 900);
 }
 
-let toastTimeout;
+var toastTimeout;
 function showToast(msg){
-  let t = document.querySelector(".toast");
+  var t = document.querySelector(".toast");
   if(t) t.remove();
   t = document.createElement("div");
   t.className = "toast";
   t.textContent = msg;
   document.body.appendChild(t);
   clearTimeout(toastTimeout);
-  toastTimeout = setTimeout(()=>t.remove(), 2000);
+  toastTimeout = setTimeout(function(){ t.remove(); }, 2000);
 }
 
 function checkWin(){
@@ -483,35 +481,36 @@ function checkWin(){
 }
 
 function showWinScreen(){
-  const overlay = document.createElement("div");
+  var overlay = document.createElement("div");
   overlay.className = "win-overlay";
-  overlay.innerHTML = `
-    <h2>🎉 You Did It!</h2>
-    <p>Your AI empire earned ${formatMoney(state.lifetimeMoney)} in total revenue.<br>You've achieved Artificial General Intelligence!</p>
-    <button class="btn btn-buy" onclick="this.parentElement.remove()" style="font-size:1rem;padding:12px 28px">Keep Playing</button>
-    <br><br>
-    <button class="btn btn-manager" id="resetBtn" style="font-size:.85rem;padding:10px 20px">🔄 Reset &amp; Play Again</button>
-  `;
+  overlay.innerHTML =
+    '<h2>\u{1F389} You Did It!</h2>' +
+    '<p>Your AI empire earned ' + formatMoney(state.lifetimeMoney) + ' in total revenue.<br>You\'ve achieved Artificial General Intelligence!</p>' +
+    '<button class="btn btn-buy" id="keepBtn" style="font-size:1rem;padding:12px 28px">Keep Playing</button>' +
+    '<br><br>' +
+    '<button class="btn btn-manager" id="resetBtn" style="font-size:.85rem;padding:10px 20px">\u{1F504} Reset &amp; Play Again</button>';
   document.body.appendChild(overlay);
-  document.getElementById("resetBtn").addEventListener("click",()=>{
+  document.getElementById("keepBtn").addEventListener("click", function(){ overlay.remove(); });
+  document.getElementById("resetBtn").addEventListener("click", function(){
     localStorage.removeItem("aiStartupTycoon");
     location.reload();
   });
 }
 
-let lastTick = performance.now();
+var lastTick = performance.now();
 
 function gameTick(now){
-  const dt = now - lastTick;
+  var dt = now - lastTick;
   lastTick = now;
 
-  for(const b of BUSINESSES){
-    const bs = getBizState(b.id);
-    const c = cards[b.id];
+  for(var i = 0; i < BUSINESSES.length; i++){
+    var b = BUSINESSES[i];
+    var bs = getBizState(b.id);
+    var c = cards[b.id];
     if(!c) continue;
 
     if(bs.level > 0 && bs.running){
-      const cycleTime = getCycleTime(b, bs.level);
+      var cycleTime = getCycleTime(b, bs.level);
       bs.progress += dt;
 
       if(bs.progress >= cycleTime){
@@ -525,7 +524,7 @@ function gameTick(now){
       }
 
       if(bs.running){
-        const pct = Math.min((bs.progress / cycleTime) * 100, 100);
+        var pct = Math.min((bs.progress / cycleTime) * 100, 100);
         c.progressBar.style.width = pct + "%";
         c.progressBar.className = "progress-bar running";
       }
@@ -538,7 +537,6 @@ function gameTick(now){
 
   updateButtons();
   checkWin();
-
   requestAnimationFrame(gameTick);
 }
 
@@ -547,38 +545,30 @@ function init(){
   buildUI();
   updateButtons();
 
-  for(const b of BUSINESSES){
-    const bs = getBizState(b.id);
-    if(bs.hasManager && bs.level > 0){
-      bs.running = true;
-      bs.progress = 0;
-    }
-    refreshCard(b.id);
+  for(var i = 0; i < BUSINESSES.length; i++){
+    var bs = getBizState(BUSINESSES[i].id);
+    if(bs.hasManager && bs.level > 0){ bs.running = true; bs.progress = 0; }
+    refreshCard(BUSINESSES[i].id);
   }
 
   lastTick = performance.now();
   requestAnimationFrame(gameTick);
-
   setInterval(saveGame, 5000);
-
   if(state.won) showWinScreen();
 }
 
 document.addEventListener("click", function(e){
-  const runBtn = e.target.closest("[data-run]");
+  var runBtn = e.target.closest("[data-run]");
   if(!runBtn) return;
-  const card = runBtn.closest(".business-card");
+  var card = runBtn.closest(".business-card");
   if(!card) return;
-  const id = card.dataset.id;
+  var id = card.getAttribute("data-id");
   if(id === "codebot"){
-    const bs = getBizState("codebot");
-    const def = getBizDef("codebot");
+    var bs = getBizState("codebot");
+    var def = getBizDef("codebot");
     if(bs.level > 0){
-      if(!bs.running){
-        bs.running = true;
-        bs.progress = 0;
-      }
-      const inc = getIncome(def, bs.level);
+      if(!bs.running){ bs.running = true; bs.progress = 0; }
+      var inc = getIncome(def, bs.level);
       state.money += inc;
       state.lifetimeMoney += inc;
       spawnFloatText(e.clientX, e.clientY, "+" + formatMoney(inc));

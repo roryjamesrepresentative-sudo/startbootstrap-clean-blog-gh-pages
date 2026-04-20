@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Coding &amp; Agent Development | Rory</title>
-    <link rel="stylesheet" href="css/scratch-styles.css?v=5">
+    <link rel="stylesheet" href="css/scratch-styles.css?v=6">
 </head>
-<body id="page-top">
+<body>
 
     <!-- Navigation -->
-    <div id="top" class="nav-bar">
+    <div class="nav-bar">
         <span class="brand">Rory</span>
         <a href="index.html">Home</a>
         <a href="#about-section">About</a>
@@ -107,14 +107,14 @@
         </div>
     </div>
 
-    <!-- Tableau Data Section (iframe embed works reliably on GitHub Pages; viz by Chimdi Nwosu, Makeover Monday) -->
+    <!-- Tableau Data Section -->
     <div id="data-section" class="content-section">
         <h2>The Rise of Large Language Models</h2>
-        <p>Interactive Tableau dashboard (embedded below). Use the toolbar and filters inside the viz to explore.</p>
+        <p>This interactive Tableau visualization explores the rapid growth of LLMs. Use the toolbar and filters inside the viz to explore the data yourself.</p>
         <div class="tableau-container">
             <iframe
                 title="Tableau: The Rise of LLMs"
-                src="https://public.tableau.com/views/MakeoverMonday2024Wk28-TheRiseofLLMs/LLMs?:showVizHome=no&amp;:embed=y&amp;:language=en-US&amp;:display_count=n&amp;:origin=viz_share_link"
+                src="https://public.tableau.com/views/MakeoverMonday2024Wk28-TheRiseofLLMs/LLMs?:showVizHome=no&:embed=true&:toolbar=yes"
                 allowfullscreen>
             </iframe>
         </div>
@@ -122,7 +122,7 @@
 
     <!-- Back to Top -->
     <div class="text-center">
-        <a href="#page-top" class="back-to-top">&#8593; Back to Top</a>
+        <a href="#" class="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">&#8593; Back to Top</a>
     </div>
 
     <!-- Footer -->
